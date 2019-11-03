@@ -4,12 +4,16 @@
   "main": "index.js",
   "author": "kazuma1989 <kazuma.ebina@quipper.com>",
   "license": "MIT",
+  "browserslist": [
+    "last 1 Chrome versions"
+  ],
   "scripts": {
     "start": "parcel ./index.html",
     "serve": "parcel build --target node ./scripts/serve.ts && node ./dist/serve"
   },
   "dependencies": {
     "immer": "^5.0.0",
+    "ky": "^0.15.0",
     "mobx": "^5.14.2",
     "mobx-react": "^6.1.4",
     "react": "^16.11.0",

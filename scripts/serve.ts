@@ -4,6 +4,16 @@ import cors from "cors";
 const app = express();
 app.use(cors());
 
+app.use(function fakeDelay(req, resp, next) {
+  if (req.method === "OPTIONS") {
+    next();
+    return;
+  }
+
+  const delayMs = Math.random() * 1000;
+  setTimeout(next, delayMs);
+});
+
 app.get("/api/notifications", (req, resp) => {
   resp.json(stubNotifications);
 });

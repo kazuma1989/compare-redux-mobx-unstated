@@ -1,5 +1,6 @@
 import React, { useState, useEffect, Suspense } from "react";
 import { Route, Switch, useHistory } from "react-router";
+import ky from "ky";
 import { Header, HeaderNotification } from "./Header";
 import { Loading } from "./Loading";
 import { Footer } from "./Footer";
@@ -14,6 +15,13 @@ export function AppStatic() {
   useEffect(() => {
     const unlisten = history.listen(close);
     return unlisten;
+  }, []);
+
+  const [notifications, setNotifications] = useState<Notification[]>([]);
+  useEffect(() => {
+    ky.get("http://localhost:8080/api/notifications/")
+      .json()
+      .then(data => setNotifications(data as Notification[]));
   }, []);
 
   return (
@@ -35,7 +43,7 @@ export function AppStatic() {
           />
 
           <Route exact path="/notifications/">
-            <NotificationListPage notifications={stubNotifications} />
+            <NotificationListPage notifications={notifications} />
           </Route>
 
           <Route

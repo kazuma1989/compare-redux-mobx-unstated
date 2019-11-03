@@ -4,7 +4,7 @@ export function Loading() {
   return (
     <section className="section">
       <div className="container">
-        <p>Loading...</p>
+        <progress className="progress is-light" />
       </div>
     </section>
   );

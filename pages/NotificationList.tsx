@@ -13,15 +13,19 @@ export default function NotificationList({
         <h1 className="title">Notifications</h1>
 
         <div className="content">
-          <ul>
-            {notifications.map(({ id, read, title }) => (
-              <li key={id}>
-                <Link to={id}>
-                  {read ? title : <strong>{title} **</strong>}
-                </Link>
-              </li>
-            ))}
-          </ul>
+          {!notifications.length ? (
+            <progress className="progress is-light" />
+          ) : (
+            <ul>
+              {notifications.map(({ id, read, title }) => (
+                <li key={id}>
+                  <Link to={id}>
+                    {read ? title : <strong>{title} **</strong>}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </div>
     </section>
