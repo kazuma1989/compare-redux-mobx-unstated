@@ -26,7 +26,7 @@ export function AppStatic() {
 
   return (
     <div>
-      <Header>
+      <Header logoText="Static">
         <HeaderNotification
           isOpen={isOpen}
           onClickArrow={toggleOpen}

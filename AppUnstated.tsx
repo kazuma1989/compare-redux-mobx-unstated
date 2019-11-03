@@ -54,7 +54,7 @@ function HeaderNotification() {
 export function AppUnstated() {
   return (
     <div>
-      <Header>
+      <Header logoText="unstated-next">
         <HeaderNotification />
       </Header>
 

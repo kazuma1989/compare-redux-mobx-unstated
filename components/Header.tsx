@@ -4,8 +4,10 @@ import { Link } from "react-router-dom";
 import { Notification } from "../types/Notification";
 
 export function Header({
+  logoText,
   children: notification
 }: {
+  logoText: string;
   children?: React.ReactNode;
 }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,7 +28,8 @@ export function Header({
             <span className="icon">
               <i className="mdi mdi-24px mdi-home" />
             </span>
-            &nbsp;&nbsp;LOGO
+            &nbsp;&nbsp;
+            {logoText}
           </Link>
 
           {/* only when mobile width */}
