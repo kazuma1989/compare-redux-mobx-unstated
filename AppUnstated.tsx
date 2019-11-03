@@ -1,23 +1,29 @@
 import React, { useState, Suspense, useEffect } from "react";
 import { createContainer } from "unstated-next";
+import ky from "ky";
 import produce from "immer";
 import { NotificationDetail, Notification } from "./types/Notification";
 import {
   Header,
-  HeaderNotification as _HeaderNotification
+  HeaderNotification as InnerHeaderNotification
 } from "./components/Header";
 import { Loading } from "./components/Loading";
 import { Switch, Route, useHistory } from "react-router";
 import { Footer } from "./components/Footer";
 
 function useNotification() {
-  const [notificationList, setNotificationList] = useState<Notification[]>([]);
+  const [notifications, setNotifications] = useState<Notification[]>([]);
+  useEffect(() => {
+    ky.get("http://localhost:8080/api/notifications/")
+      .json()
+      .then(data => setNotifications(data as Notification[]));
+  }, []);
 
   return {
-    notificationList,
+    notifications,
 
     markAsRead(index: number) {
-      setNotificationList(list =>
+      setNotifications(list =>
         produce(list, draft => {
           draft[index].read = true;
         })
@@ -42,11 +48,13 @@ function HeaderNotification() {
     return unlisten;
   }, []);
 
+  const { notifications } = useNotificationContainer();
+
   return (
-    <_HeaderNotification
+    <InnerHeaderNotification
       isOpen={isOpen}
       onClickArrow={toggleOpen}
-      notifications={stubNotifications}
+      notifications={notifications}
     />
   );
 }
@@ -55,7 +63,9 @@ export function AppUnstated() {
   return (
     <div>
       <Header logoText="unstated-next">
-        <HeaderNotification />
+        <NotificationProvider>
+          <HeaderNotification />
+        </NotificationProvider>
       </Header>
 
       <Suspense fallback={<Loading />}>
