@@ -2,8 +2,8 @@ import ReactDOM from "react-dom";
 import React from "react";
 import { AppUnstated } from "./AppUnstated";
 
-function App({ style }: { style: React.CSSProperties }) {
-  return <div style={style}>app</div>;
+function App() {
+  return <div>app</div>;
 }
 
 const wrapper: React.CSSProperties = {
@@ -19,9 +19,15 @@ const app: React.CSSProperties = {
 
 ReactDOM.render(
   <div style={wrapper}>
-    <AppUnstated style={app} />
-    <App style={app} />
-    <App style={app} />
+    <div style={app}>
+      <AppUnstated />
+    </div>
+    <div style={app}>
+      <App />
+    </div>
+    <div style={app}>
+      <App />
+    </div>
   </div>,
   document.getElementById("app")
 );

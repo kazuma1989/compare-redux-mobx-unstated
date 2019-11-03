@@ -55,10 +55,10 @@ function Header() {
   );
 }
 
-export function AppUnstated({ style }: { style: React.CSSProperties }) {
+export function AppUnstated() {
   return (
     <NotificationProvider>
-      <div style={style}>
+      <div>
         <Header />
       </div>
     </NotificationProvider>
