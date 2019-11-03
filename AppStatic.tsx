@@ -1,9 +1,9 @@
 import React, { useState, useEffect, Suspense } from "react";
 import { Route, Switch, useHistory } from "react-router";
 import ky from "ky";
-import { Header, HeaderNotification } from "./Header";
-import { Loading } from "./Loading";
-import { Footer } from "./Footer";
+import { Header, HeaderNotification } from "./components/Header";
+import { Loading } from "./components/Loading";
+import { Footer } from "./components/Footer";
 import { Notification, NotificationDetail } from "./types/Notification";
 
 export function AppStatic() {
