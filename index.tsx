@@ -1,5 +1,6 @@
 import ReactDOM from "react-dom";
 import React from "react";
+import { AppUnstated } from "./AppUnstated";
 
 function App({ style }: { style: React.CSSProperties }) {
   return <div style={style}>app</div>;
@@ -18,7 +19,7 @@ const app: React.CSSProperties = {
 
 ReactDOM.render(
   <div style={wrapper}>
-    <App style={app} />
+    <AppUnstated style={app} />
     <App style={app} />
     <App style={app} />
   </div>,
