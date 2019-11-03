@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Route, Switch, withRouter } from "react-router";
+import { Route, Switch, useHistory } from "react-router";
 import { Link } from "react-router-dom";
 
 function Header({ children }: { children?: React.ReactNode }) {
@@ -20,7 +20,9 @@ function Header({ children }: { children?: React.ReactNode }) {
   );
 }
 
-const HeaderNotification = withRouter(function HeaderNotification({ history }) {
+function HeaderNotification() {
+  const history = useHistory();
+
   const [isOpen, setIsOpen] = useState(false);
   const toggleOpen = () => setIsOpen(v => !v);
 
@@ -59,7 +61,7 @@ const HeaderNotification = withRouter(function HeaderNotification({ history }) {
       </div>
     </div>
   );
-});
+}
 
 function HomePage() {
   return (
