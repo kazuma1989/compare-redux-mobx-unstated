@@ -29,7 +29,7 @@ function ListPage({ notifications }: { notifications: Notification[] }) {
 }
 
 function DetailPage({
-  notification: { id, read, title, body }
+  notification: { id, read, title, items }
 }: {
   notification: Notification;
 }) {
@@ -39,15 +39,32 @@ function DetailPage({
         <h1 className="title">{title}</h1>
 
         <div className="content">
-          <p className="image is-3by1">
-            <img src="https://via.placeholder.com/600x200.png" />
-          </p>
+          {items.map(({ type, body }, i) => {
+            switch (type) {
+              case "url":
+                return (
+                  <p key={i}>
+                    <a href={body}>{body}</a>
+                  </p>
+                );
 
-          <p>{body}</p>
-          <p>hello[</p>
-          <p>hello[</p>
-          <p>hello[</p>
-          <p>hello[</p>
+              case "caption":
+                return <h3 key={i}>{body}</h3>;
+
+              case "image":
+                return (
+                  <p key={i} className="image is-3by1">
+                    <img src={body} />
+                  </p>
+                );
+
+              case "text":
+                return <p key={i}>{body}</p>;
+
+              default:
+                return null;
+            }
+          })}
         </div>
       </div>
     </section>
@@ -116,7 +133,57 @@ export function AppStatic() {
 const NotFoundPage = React.lazy(() => import("./pages/NotFound"));
 
 const stubNotifications: Notification[] = [
-  { id: "xxx", read: false, title: "title", body: "body" },
-  { id: "yyy", read: true, title: "title", body: "body" },
-  { id: "zzz", read: false, title: "title", body: "body" }
+  {
+    id: "xxx",
+    read: false,
+    title: "The title",
+    items: [
+      {
+        type: "image",
+        body: "https://via.placeholder.com/600x200.png"
+      },
+      {
+        type: "url",
+        body: "https://via.placeholder.com/600x200.png"
+      },
+      {
+        type: "caption",
+        body: "The caption"
+      },
+      {
+        type: "text",
+        body: "Lorem ipsum"
+      }
+    ]
+  },
+  {
+    id: "yyy",
+    read: true,
+    title: "The title",
+    items: [
+      {
+        type: "caption",
+        body: "The caption"
+      },
+      {
+        type: "text",
+        body: "Lorem ipsum"
+      }
+    ]
+  },
+  {
+    id: "zzz",
+    read: false,
+    title: "The title",
+    items: [
+      {
+        type: "text",
+        body: "Lorem ipsum"
+      },
+      {
+        type: "text",
+        body: "Lorem ipsum, dolor"
+      }
+    ]
+  }
 ];

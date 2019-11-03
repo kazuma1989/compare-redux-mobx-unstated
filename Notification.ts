@@ -2,5 +2,8 @@ export type Notification = {
   id: string;
   read: boolean;
   title: string;
-  body: string;
+  items: {
+    type: "url" | "image" | "caption" | "text";
+    body: string;
+  }[];
 };
