@@ -3,6 +3,7 @@ import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { App as AppStatic } from "./apps/static/App";
 import { App as AppUnstated } from "./apps/unstated/App";
+import { App as AppRedux } from "./apps/redux/App";
 
 class ErrorBoundary extends React.Component<{}, { hasError: boolean }> {
   static getDerivedStateFromError(err) {
@@ -49,7 +50,7 @@ ReactDOM.render(
         <AppStatic />
       </ErrorBoundary>
       <ErrorBoundary>
-        <AppStatic />
+        <AppRedux />
       </ErrorBoundary>
     </div>
   </Router>,
