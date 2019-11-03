@@ -5,18 +5,15 @@ import { Provider } from "react-redux";
 import { Loading } from "../../components/Loading";
 import { Footer } from "../../components/Footer";
 import { Header } from "./Header";
-import {
-  Notifications as NotificationsContainer,
-  reducer as notificationsReducer
-} from "./containers/Notifications";
-import {
-  NotificationDetail as NotificationDetailContainer,
-  reducer as notificationDetailReducer
-} from "./containers/NotificationDetail";
+import * as NotificationsContainer from "./containers/Notifications";
+import * as NotificationDetailContainer from "./containers/NotificationDetail";
 import { State } from "./State";
 
 type Reducer = (state: State, action: any) => State;
-const reducers: Reducer[] = [notificationsReducer, notificationDetailReducer];
+const reducers: Reducer[] = [
+  NotificationsContainer.reducer,
+  NotificationDetailContainer.reducer
+];
 
 const store = createStore(function reducer(
   state: State = {
@@ -39,10 +36,11 @@ const pages = {
   NotFound: React.lazy(() => import("./pages/NotFound"))
 };
 
-export function App() {
+function InnerApp() {
+  NotificationsContainer.useContainer();
+
   return (
-    <Provider store={store}>
-      <NotificationsContainer />
+    <>
       <Header />
 
       <Suspense fallback={<Loading />}>
@@ -70,6 +68,14 @@ export function App() {
       </Suspense>
 
       <Footer />
+    </>
+  );
+}
+
+export function App() {
+  return (
+    <Provider store={store}>
+      <InnerApp />
     </Provider>
   );
 }

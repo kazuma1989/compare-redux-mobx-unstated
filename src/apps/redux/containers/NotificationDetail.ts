@@ -5,7 +5,7 @@ import ky from "ky";
 import { NotificationDetail } from "../../../types/Notification";
 import { State } from "../State";
 
-export function NotificationDetail({ id }: { id: string }) {
+export function useContainer(id: string) {
   const dispatch = useDispatch<Action>();
 
   useEffect(() => {
@@ -27,8 +27,6 @@ export function NotificationDetail({ id }: { id: string }) {
         })
       );
   }, [id]);
-
-  return null;
 }
 
 type Action =

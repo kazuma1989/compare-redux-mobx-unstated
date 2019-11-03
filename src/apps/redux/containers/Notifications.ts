@@ -5,7 +5,7 @@ import ky from "ky";
 import { Notification } from "../../../types/Notification";
 import { State } from "../State";
 
-export function Notifications() {
+export function useContainer() {
   const dispatch = useDispatch<Action>();
 
   useEffect(() => {
@@ -27,8 +27,6 @@ export function Notifications() {
         })
       );
   }, []);
-
-  return null;
 }
 
 type Action =
