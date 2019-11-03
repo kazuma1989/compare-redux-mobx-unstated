@@ -4,72 +4,6 @@ import { Header, HeaderNotification } from "./Header";
 import { Loading } from "./Loading";
 import { Footer } from "./Footer";
 import { Notification } from "./Notification";
-import { Link } from "react-router-dom";
-
-function ListPage({ notifications }: { notifications: Notification[] }) {
-  return (
-    <section className="section">
-      <div className="container">
-        <h1 className="title">Notifications</h1>
-
-        <div className="content">
-          <ul>
-            {notifications.map(({ id, read, title }) => (
-              <li key={id}>
-                <Link to={id}>
-                  {read ? title : <strong>{title} **</strong>}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function DetailPage({
-  notification: { id, read, title, items }
-}: {
-  notification: Notification;
-}) {
-  return (
-    <section className="section">
-      <div className="container">
-        <h1 className="title">{title}</h1>
-
-        <div className="content">
-          {items.map(({ type, body }, i) => {
-            switch (type) {
-              case "url":
-                return (
-                  <p key={i}>
-                    <a href={body}>{body}</a>
-                  </p>
-                );
-
-              case "caption":
-                return <h3 key={i}>{body}</h3>;
-
-              case "image":
-                return (
-                  <p key={i} className="image is-3by1">
-                    <img src={body} />
-                  </p>
-                );
-
-              case "text":
-                return <p key={i}>{body}</p>;
-
-              default:
-                return null;
-            }
-          })}
-        </div>
-      </div>
-    </section>
-  );
-}
 
 export function AppStatic() {
   const [isOpen, setIsOpen] = useState(false);
@@ -101,7 +35,7 @@ export function AppStatic() {
           />
 
           <Route exact path="/notifications/">
-            <ListPage notifications={stubNotifications} />
+            <NotificationListPage notifications={stubNotifications} />
           </Route>
 
           <Route
@@ -115,7 +49,7 @@ export function AppStatic() {
                 return <NotFoundPage />;
               }
 
-              return <DetailPage notification={notification} />;
+              return <NotificationDetailPage notification={notification} />;
             }}
           />
 
@@ -129,6 +63,13 @@ export function AppStatic() {
     </div>
   );
 }
+
+const NotificationListPage = React.lazy(() =>
+  import("./pages/NotificationList")
+);
+const NotificationDetailPage = React.lazy(() =>
+  import("./pages/NotificationDetail")
+);
 
 const NotFoundPage = React.lazy(() => import("./pages/NotFound"));
 
