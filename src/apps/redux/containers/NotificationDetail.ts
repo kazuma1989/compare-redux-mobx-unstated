@@ -5,6 +5,18 @@ import ky from "ky";
 import { NotificationDetail } from "../../../types/Notification";
 import { State } from "../State";
 
+type Action =
+  | {
+      type: "NotificationDetail.RUNNING";
+    }
+  | {
+      type: "NotificationDetail.SUCCESS";
+      payload: NotificationDetail;
+    }
+  | {
+      type: "NotificationDetail.ERROR";
+    };
+
 export function useContainer(id: string) {
   const dispatch = useDispatch<Action>();
 
@@ -28,18 +40,6 @@ export function useContainer(id: string) {
       );
   }, [id]);
 }
-
-type Action =
-  | {
-      type: "NotificationDetail.RUNNING";
-    }
-  | {
-      type: "NotificationDetail.SUCCESS";
-      payload: NotificationDetail;
-    }
-  | {
-      type: "NotificationDetail.ERROR";
-    };
 
 export const reducer = produce<(draft: State, action: Action) => void>(
   (draft, action) => {
