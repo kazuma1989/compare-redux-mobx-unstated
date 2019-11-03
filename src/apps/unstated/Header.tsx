@@ -1,39 +1,9 @@
-import React, { useState, useEffect } from "react";
-import ky from "ky";
+import React from "react";
 import { Header as InnerHeader } from "../../components/Header";
-import { TransactionStatus } from "../../types/TransactionStatus";
-import { Notification } from "../../types/Notification";
+import { NotificationsContainer } from "./containers/Notifications";
 
 export function Header() {
-  const [{ transaction, notifications }, setState] = useState<{
-    transaction: TransactionStatus;
-    notifications: Notification[];
-  }>({
-    transaction: "idle",
-    notifications: []
-  });
+  const { notifications } = NotificationsContainer.useContainer();
 
-  useEffect(() => {
-    setState({
-      transaction: "running",
-      notifications: []
-    });
-
-    ky.get(`http://localhost:8080/api/notifications`)
-      .json()
-      .then(data =>
-        setState({
-          transaction: "success",
-          notifications: data as Notification[]
-        })
-      )
-      .catch(err =>
-        setState({
-          transaction: "error",
-          notifications: []
-        })
-      );
-  }, []);
-
-  return <InnerHeader logoText="static" notifications={notifications} />;
+  return <InnerHeader logoText="unstated-next" notifications={notifications} />;
 }
