@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Home() {
+export function Home() {
   return (
     <section className="section">
       <div className="container">

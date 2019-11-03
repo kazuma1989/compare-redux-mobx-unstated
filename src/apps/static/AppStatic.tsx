@@ -6,6 +6,13 @@ import { Loading } from "../../components/Loading";
 import { Footer } from "../../components/Footer";
 import { Notification, NotificationDetail } from "../../types/Notification";
 
+const pages = {
+  Home: React.lazy(() => import("./pages/Home")),
+  NotificationList: React.lazy(() => import("./pages/NotificationList")),
+  NotificationDetail: React.lazy(() => import("./pages/NotificationDetail")),
+  NotFound: React.lazy(() => import("./pages/NotFound"))
+};
+
 export function AppStatic() {
   const [isOpen, setIsOpen] = useState(false);
   const toggleOpen = () => setIsOpen(v => !v);
@@ -36,33 +43,24 @@ export function AppStatic() {
 
       <Suspense fallback={<Loading />}>
         <Switch>
-          <Route
-            exact
-            path="/"
-            component={React.lazy(() => import("../../pages/Home"))}
-          />
+          <Route exact path="/">
+            <pages.Home />
+          </Route>
 
           <Route exact path="/notifications/">
-            <NotificationListPage notifications={notifications} />
+            <pages.NotificationList />
           </Route>
 
           <Route
             exact
             path="/notifications/:id"
-            render={({ match }) => {
-              const notification = stubNotifications.find(
-                n => n.id === match.params.id
-              );
-              if (!notification) {
-                return <NotFoundPage />;
-              }
-
-              return <NotificationDetailPage notification={notification} />;
-            }}
+            render={({ match }) => (
+              <pages.NotificationDetail id={match.params.id} />
+            )}
           />
 
           <Route>
-            <NotFoundPage />
+            <pages.NotFound />
           </Route>
         </Switch>
       </Suspense>
@@ -71,15 +69,6 @@ export function AppStatic() {
     </div>
   );
 }
-
-const NotificationListPage = React.lazy(() =>
-  import("../../pages/NotificationList")
-);
-const NotificationDetailPage = React.lazy(() =>
-  import("../../pages/NotificationDetail")
-);
-
-const NotFoundPage = React.lazy(() => import("../../pages/NotFound"));
 
 const stubNotifications: NotificationDetail[] = [
   {
