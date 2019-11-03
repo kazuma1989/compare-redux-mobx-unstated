@@ -11,7 +11,8 @@
     "start": "concurrently \"yarn serve\" \"yarn api\"",
     "serve": "parcel ./index.html",
     "preapi": "parcel build --target node ./scripts/api.ts",
-    "api": "node ./dist/api"
+    "api": "node ./dist/api",
+    "check-type": "yarn tsc"
   },
   "dependencies": {
     "immer": "^5.0.0",
