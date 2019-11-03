@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Suspense } from "react";
 import { Route, Switch, useHistory } from "react-router";
 import { Header, HeaderNotification } from "./Header";
+import { Loading } from "./Loading";
 
 function ListPage() {
   return (
@@ -51,16 +52,6 @@ function Footer() {
         </p>
       </div>
     </footer>
-  );
-}
-
-function Loading() {
-  return (
-    <section className="section">
-      <div className="container">
-        <p>Loading...</p>
-      </div>
-    </section>
   );
 }
 
