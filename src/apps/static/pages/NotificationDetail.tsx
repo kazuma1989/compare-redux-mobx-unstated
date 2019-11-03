@@ -21,7 +21,7 @@ export default function NotificationDetailPage({ id }: { id: string }) {
       notification: null
     });
 
-    ky.get(`http://localhost:8080/api/notifications/${id}`)
+    ky.get(`http://localhost:3000/notifications/${id}`)
       .json()
       .then(data =>
         setState({
