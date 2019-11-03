@@ -1,5 +1,6 @@
 import ReactDOM from "react-dom";
 import React from "react";
+import { BrowserRouter as Router } from "react-router-dom";
 import { AppStatic } from "./AppStatic";
 import { AppUnstated } from "./AppUnstated";
 
@@ -14,16 +15,18 @@ const app: React.CSSProperties = {
 };
 
 ReactDOM.render(
-  <div style={wrapper}>
-    <div style={app}>
-      <AppUnstated />
+  <Router>
+    <div style={wrapper}>
+      <div style={app}>
+        <AppUnstated />
+      </div>
+      <div style={app}>
+        <AppStatic />
+      </div>
+      <div style={app}>
+        <AppStatic />
+      </div>
     </div>
-    <div style={app}>
-      <AppStatic />
-    </div>
-    <div style={app}>
-      <AppStatic />
-    </div>
-  </div>,
+  </Router>,
   document.getElementById("app")
 );

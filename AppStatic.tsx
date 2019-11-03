@@ -1,13 +1,15 @@
 import React, { useState } from "react";
+import { Route, Switch } from "react-router";
+import { Link } from "react-router-dom";
 
 function Header({ children }: { children?: React.ReactNode }) {
   return (
     <nav className="navbar is-link">
       <div className="container" style={{ display: "block" }}>
         <div className="navbar-brand" style={{ marginLeft: 0 }}>
-          <a href="/" className="navbar-item">
+          <Link to="/" className="navbar-item">
             Home
-          </a>
+          </Link>
 
           <div style={{ flexGrow: 1 }}></div>
 
@@ -38,6 +40,26 @@ function HeaderNotification() {
         <div className="navbar-item">Version 0.8.0</div>
       </div>
     </div>
+  );
+}
+
+function HomePage() {
+  return (
+    <section className="section">
+      <div className="container">
+        <h1 className="title">Home</h1>
+      </div>
+    </section>
+  );
+}
+
+function NotFoundPage() {
+  return (
+    <section className="section">
+      <div className="container">
+        <h1 className="title">Not Found</h1>
+      </div>
+    </section>
   );
 }
 
@@ -100,8 +122,21 @@ export function AppStatic() {
         <HeaderNotification />
       </Header>
 
-      <ListPage />
-      <DetailPage />
+      <Switch>
+        <Route exact path="/">
+          <HomePage />
+        </Route>
+        <Route exact path="/notifications">
+          <ListPage />
+        </Route>
+        <Route exact path="/notifications/:id">
+          <DetailPage />
+        </Route>
+
+        <Route>
+          <NotFoundPage />
+        </Route>
+      </Switch>
 
       <Footer />
     </div>
