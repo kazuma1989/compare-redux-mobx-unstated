@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Route, Switch } from "react-router";
+import React, { useState, useEffect } from "react";
+import { Route, Switch, withRouter } from "react-router";
 import { Link } from "react-router-dom";
 
 function Header({ children }: { children?: React.ReactNode }) {
@@ -20,9 +20,17 @@ function Header({ children }: { children?: React.ReactNode }) {
   );
 }
 
-function HeaderNotification() {
+const HeaderNotification = withRouter(function HeaderNotification({ history }) {
   const [isOpen, setIsOpen] = useState(false);
   const toggleOpen = () => setIsOpen(v => !v);
+
+  useEffect(
+    () =>
+      history.listen(function close() {
+        setIsOpen(false);
+      }),
+    [history]
+  );
 
   return (
     <div className={`navbar-item has-dropdown ${isOpen ? "is-active" : ""}`}>
@@ -51,7 +59,7 @@ function HeaderNotification() {
       </div>
     </div>
   );
-}
+});
 
 function HomePage() {
   return (
