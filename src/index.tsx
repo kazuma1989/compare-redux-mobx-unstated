@@ -4,28 +4,53 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { App as AppStatic } from "./apps/static/App";
 import { App as AppUnstated } from "./apps/unstated/App";
 
-const wrapper: React.CSSProperties = {
-  display: "flex",
-  flexFlow: "row nowrap"
-};
+class ErrorBoundary extends React.Component<{}, { hasError: boolean }> {
+  static getDerivedStateFromError(err) {
+    return { hasError: true };
+  }
 
-const app: React.CSSProperties = {
-  border: "solid 1px black",
-  flex: "1 1 auto"
-};
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  render() {
+    return (
+      <div
+        style={{
+          border: "solid 1px black",
+          flex: "1 1 auto"
+        }}
+      >
+        {this.state.hasError ? (
+          <div className="message is-danger">
+            <div className="message-body">ERROR</div>
+          </div>
+        ) : (
+          this.props.children
+        )}
+      </div>
+    );
+  }
+}
 
 ReactDOM.render(
   <Router>
-    <div style={wrapper}>
-      <div style={app}>
+    <div
+      style={{
+        display: "flex",
+        flexFlow: "row nowrap"
+      }}
+    >
+      <ErrorBoundary>
         <AppUnstated />
-      </div>
-      <div style={app}>
+      </ErrorBoundary>
+      <ErrorBoundary>
         <AppStatic />
-      </div>
-      <div style={app}>
+      </ErrorBoundary>
+      <ErrorBoundary>
         <AppStatic />
-      </div>
+      </ErrorBoundary>
     </div>
   </Router>,
   document.getElementById("app")
