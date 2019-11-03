@@ -1,41 +1,14 @@
-import React, { useEffect, useState } from "react";
-import ky from "ky";
-import { NotificationDetail as TNotificationDetail } from "../../../types/Notification";
+import React from "react";
 import { NotificationDetail } from "../../../components/NotificationDetail";
 import { NotFound } from "../../../components/NotFound";
-import { TransactionStatus } from "../../../types/TransactionStatus";
 import { Loading } from "../../../components/Loading";
+import { NotificationDetailContainer } from "../containers/NotificationDetail";
 
-export default function NotificationDetailPage({ id }: { id: string }) {
-  const [{ transaction, notification }, setState] = useState<{
-    transaction: TransactionStatus;
-    notification: TNotificationDetail | null;
-  }>({
-    transaction: "idle",
-    notification: null
-  });
-
-  useEffect(() => {
-    setState({
-      transaction: "running",
-      notification: null
-    });
-
-    ky.get(`http://localhost:8080/api/notifications/${id}`)
-      .json()
-      .then(data =>
-        setState({
-          transaction: "success",
-          notification: data as TNotificationDetail
-        })
-      )
-      .catch(err =>
-        setState({
-          transaction: "error",
-          notification: null
-        })
-      );
-  }, [id]);
+export default function NotificationDetailPage() {
+  const {
+    transaction,
+    notification
+  } = NotificationDetailContainer.useContainer();
 
   if (!notification) {
     switch (transaction) {

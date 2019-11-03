@@ -4,6 +4,7 @@ import { Loading } from "../../components/Loading";
 import { Footer } from "../../components/Footer";
 import { Header } from "./Header";
 import { NotificationsContainer } from "./containers/Notifications";
+import { NotificationDetailContainer } from "./containers/NotificationDetail";
 
 const pages = {
   Home: React.lazy(() => import("./pages/Home")),
@@ -31,7 +32,11 @@ export function App() {
             exact
             path="/notifications/:id"
             render={({ match }) => (
-              <pages.NotificationDetail id={match.params.id} />
+              <NotificationDetailContainer.Provider
+                initialState={match.params.id}
+              >
+                <pages.NotificationDetail />
+              </NotificationDetailContainer.Provider>
             )}
           />
 
