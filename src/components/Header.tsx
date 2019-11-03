@@ -5,18 +5,22 @@ import { Notification } from "../types/Notification";
 
 export function Header({
   logoText,
-  children: notification
+  isOpen,
+  onClickArrow,
+  notifications
 }: {
   logoText: string;
-  children?: React.ReactNode;
+  isOpen: boolean;
+  onClickArrow(): unknown;
+  notifications: Notification[];
 }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const toggleOpen = () => setIsOpen(v => !v);
+  const [isOpenMenu, setIsOpenMenu] = useState(false);
+  const toggleOpen = () => setIsOpenMenu(v => !v);
 
   const history = useHistory();
-  const close = () => setIsOpen(false);
+  const closeMenu = () => setIsOpenMenu(false);
   useEffect(() => {
-    const unlisten = history.listen(close);
+    const unlisten = history.listen(closeMenu);
     return unlisten;
   }, []);
 
@@ -24,23 +28,43 @@ export function Header({
     <nav className="navbar is-link">
       <div className="container">
         <div className="navbar-brand">
-          <Link to="/" className="navbar-item">
-            <span className="icon">
-              <i className="mdi mdi-24px mdi-home" />
-            </span>
-            &nbsp;&nbsp;
-            {logoText}
-          </Link>
+          <LogoItem text={logoText} />
 
           {/* only when mobile width */}
-          <Burger isOpen={isOpen} onClick={toggleOpen} />
+          <Burger isOpen={isOpenMenu} onClick={toggleOpen} />
         </div>
 
-        <div className={`navbar-menu ${isOpen ? "is-active" : ""}`}>
-          <div className="navbar-end">{notification}</div>
+        <div className={`navbar-menu ${isOpenMenu ? "is-active" : ""}`}>
+          <div className="navbar-end">
+            <div
+              className={`navbar-item has-dropdown ${
+                isOpen ? "is-active" : ""
+              }`}
+            >
+              <span className="navbar-link" onClick={onClickArrow}>
+                <span className="icon">
+                  <i className="mdi mdi-18px mdi-bell" />
+                </span>
+              </span>
+
+              <Dropdown notifications={notifications} />
+            </div>
+          </div>
         </div>
       </div>
     </nav>
+  );
+}
+
+function LogoItem({ text }: { text: string }) {
+  return (
+    <Link to="/" className="navbar-item">
+      <span className="icon">
+        <i className="mdi mdi-24px mdi-home" />
+      </span>
+      &nbsp;&nbsp;
+      {text}
+    </Link>
   );
 }
 
@@ -57,36 +81,20 @@ function Burger({ isOpen, onClick }: { isOpen: boolean; onClick(): unknown }) {
   );
 }
 
-export function HeaderNotification({
-  isOpen,
-  onClickArrow,
-  notifications
-}: {
-  isOpen: boolean;
-  onClickArrow(): unknown;
-  notifications: Notification[];
-}) {
+function Dropdown({ notifications }: { notifications: Notification[] }) {
   return (
-    <div className={`navbar-item has-dropdown ${isOpen ? "is-active" : ""}`}>
-      <span className="navbar-link" onClick={onClickArrow}>
-        <span className="icon">
-          <i className="mdi mdi-18px mdi-bell" />
-        </span>
-      </span>
-
-      <div className="navbar-dropdown is-right">
-        {notifications.map(({ id, read, title }) => (
-          <Link key={id} to={`/notifications/${id}`} className="navbar-item">
-            {read ? title : <strong>{title} **</strong>}
-          </Link>
-        ))}
-
-        <hr className="navbar-divider" />
-
-        <Link to="/notifications/" className="navbar-item">
-          Show all notifications
+    <div className="navbar-dropdown is-right">
+      {notifications.map(({ id, read, title }) => (
+        <Link key={id} to={`/notifications/${id}`} className="navbar-item">
+          {read ? title : <strong>{title} **</strong>}
         </Link>
-      </div>
+      ))}
+
+      <hr className="navbar-divider" />
+
+      <Link to="/notifications/" className="navbar-item">
+        Show all notifications
+      </Link>
     </div>
   );
 }
