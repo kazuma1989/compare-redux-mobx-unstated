@@ -1,8 +1,38 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useState, useEffect } from "react";
 import { Route, Switch } from "react-router";
+import ky from "ky";
+import produce from "immer";
+import { createContainer } from "unstated-next";
 import { Loading } from "../../components/Loading";
 import { Footer } from "../../components/Footer";
 import { Header } from "./Header";
+import { Notification } from "../../types/Notification";
+
+function useNotification() {
+  const [notifications, setNotifications] = useState<Notification[]>([]);
+  useEffect(() => {
+    ky.get("http://localhost:8080/api/notifications/")
+      .json()
+      .then(data => setNotifications(data as Notification[]));
+  }, []);
+
+  return {
+    notifications,
+
+    markAsRead(index: number) {
+      setNotifications(list =>
+        produce(list, draft => {
+          draft[index].read = true;
+        })
+      );
+    }
+  };
+}
+
+const {
+  Provider: NotificationProvider,
+  useContainer: useNotificationContainer
+} = createContainer(useNotification);
 
 const pages = {
   Home: React.lazy(() => import("./pages/Home")),
@@ -11,7 +41,7 @@ const pages = {
   NotFound: React.lazy(() => import("./pages/NotFound"))
 };
 
-export function AppStatic() {
+export function App() {
   return (
     <div>
       <Header />

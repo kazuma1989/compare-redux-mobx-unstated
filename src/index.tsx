@@ -1,8 +1,8 @@
 import ReactDOM from "react-dom";
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
-import { AppStatic } from "./apps/static/AppStatic";
-import { AppUnstated } from "./apps/unstated/AppUnstated";
+import { App as AppStatic } from "./apps/static/App";
+import { App as AppUnstated } from "./apps/unstated/App";
 
 const wrapper: React.CSSProperties = {
   display: "flex",
