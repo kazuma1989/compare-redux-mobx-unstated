@@ -1,5 +1,5 @@
 import React from "react";
-import { NotificationDetail } from "../Notification";
+import { NotificationDetail } from "../types/Notification";
 
 export default function NotificationDetail({
   notification: { id, read, title, items }

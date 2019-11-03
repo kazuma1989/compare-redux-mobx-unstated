@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
-import { Notification } from "./Notification";
+import { Notification } from "./types/Notification";
 
 export function Header({
   children: notification

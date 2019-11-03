@@ -4,7 +4,7 @@ import ky from "ky";
 import { Header, HeaderNotification } from "./Header";
 import { Loading } from "./Loading";
 import { Footer } from "./Footer";
-import { Notification, NotificationDetail } from "./Notification";
+import { Notification, NotificationDetail } from "./types/Notification";
 
 export function AppStatic() {
   const [isOpen, setIsOpen] = useState(false);
