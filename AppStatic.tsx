@@ -28,20 +28,17 @@ function Header({ children }: { children?: React.ReactNode }) {
 }
 
 function HeaderNotification({
+  isOpen,
+  onClickArrow,
   notifications
 }: {
+  isOpen: boolean;
+  onClickArrow(): unknown;
   notifications: Notification[];
 }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const toggleOpen = () => setIsOpen(v => !v);
-
-  const history = useHistory();
-  const close = () => setIsOpen(false);
-  useEffect(() => history.listen(close), []);
-
   return (
     <div className={`navbar-item has-dropdown ${isOpen ? "is-active" : ""}`}>
-      <span className="navbar-link" onClick={toggleOpen}>
+      <span className="navbar-link" onClick={onClickArrow}>
         <span className="icon is-large">
           <i className="mdi mdi-24px mdi-bell"></i>
         </span>
@@ -137,10 +134,19 @@ function Footer() {
 }
 
 export function AppStatic() {
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleOpen = () => setIsOpen(v => !v);
+
+  const history = useHistory();
+  const close = () => setIsOpen(false);
+  useEffect(() => history.listen(close), []);
+
   return (
     <div>
       <Header>
         <HeaderNotification
+          isOpen={isOpen}
+          onClickArrow={toggleOpen}
           notifications={[
             { id: "xxx", read: false, title: "title", body: "body" },
             { id: "yyy", read: false, title: "title", body: "body" },
