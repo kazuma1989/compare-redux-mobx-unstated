@@ -25,7 +25,9 @@ export function useContainer(id: string) {
       type: "NotificationDetail.RUNNING"
     });
 
-    ky.get(`http://localhost:3000/notifications/${id}`)
+    ky.patch(`http://localhost:3000/notifications/${id}`, {
+      json: { read: true }
+    })
       .json()
       .then(data =>
         dispatch({
