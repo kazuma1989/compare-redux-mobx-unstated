@@ -4,7 +4,7 @@ import ky from "ky";
 import { Header, HeaderNotification } from "./Header";
 import { Loading } from "./Loading";
 import { Footer } from "./Footer";
-import { Notification } from "./Notification";
+import { Notification, NotificationDetail } from "./Notification";
 
 export function AppStatic() {
   const [isOpen, setIsOpen] = useState(false);
@@ -81,7 +81,7 @@ const NotificationDetailPage = React.lazy(() =>
 
 const NotFoundPage = React.lazy(() => import("./pages/NotFound"));
 
-const stubNotifications: Notification[] = [
+const stubNotifications: NotificationDetail[] = [
   {
     id: "xxx",
     read: false,

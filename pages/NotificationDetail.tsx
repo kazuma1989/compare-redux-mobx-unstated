@@ -1,10 +1,10 @@
 import React from "react";
-import { Notification } from "../Notification";
+import { NotificationDetail } from "../Notification";
 
 export default function NotificationDetail({
   notification: { id, read, title, items }
 }: {
-  notification: Notification;
+  notification: NotificationDetail;
 }) {
   return (
     <section className="section">

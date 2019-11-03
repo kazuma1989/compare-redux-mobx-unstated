@@ -15,7 +15,13 @@ app.use(function fakeDelay(req, resp, next) {
 });
 
 app.get("/api/notifications", (req, resp) => {
-  resp.json(stubNotifications);
+  resp.json(
+    stubNotifications.map<Notification>(({ id, read, title }) => ({
+      id,
+      read,
+      title
+    }))
+  );
 });
 
 app.get("/api/notifications/:id", (req, resp) => {
@@ -34,13 +40,16 @@ type Notification = {
   id: string;
   read: boolean;
   title: string;
+};
+
+type NotificationDetail = Notification & {
   items: {
     type: "url" | "image" | "caption" | "text";
     body: string;
   }[];
 };
 
-const stubNotifications: Notification[] = [
+const stubNotifications: NotificationDetail[] = [
   {
     id: "xxx",
     read: false,
