@@ -33,11 +33,21 @@ function HeaderNotification() {
       </span>
 
       <div className="navbar-dropdown is-right">
-        <a className="navbar-item">Overview</a>
-        <a className="navbar-item">Elements</a>
-        <a className="navbar-item">Components</a>
+        <Link to="/notifications/xxx" className="navbar-item">
+          xxx
+        </Link>
+        <Link to="/notifications/yyy" className="navbar-item">
+          yyy
+        </Link>
+        <Link to="/notifications/zzz" className="navbar-item">
+          zzz
+        </Link>
+
         <hr className="navbar-divider" />
-        <div className="navbar-item">Version 0.8.0</div>
+
+        <Link to="/notifications" className="navbar-item">
+          Show all notifications
+        </Link>
       </div>
     </div>
   );
