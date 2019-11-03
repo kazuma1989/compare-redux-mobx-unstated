@@ -1,15 +1,11 @@
 import ReactDOM from "react-dom";
 import React from "react";
+import { AppStatic } from "./AppStatic";
 import { AppUnstated } from "./AppUnstated";
-
-function App() {
-  return <div>app</div>;
-}
 
 const wrapper: React.CSSProperties = {
   display: "flex",
-  flexFlow: "row nowrap",
-  height: "100%"
+  flexFlow: "row nowrap"
 };
 
 const app: React.CSSProperties = {
@@ -23,10 +19,10 @@ ReactDOM.render(
       <AppUnstated />
     </div>
     <div style={app}>
-      <App />
+      <AppStatic />
     </div>
     <div style={app}>
-      <App />
+      <AppStatic />
     </div>
   </div>,
   document.getElementById("app")
