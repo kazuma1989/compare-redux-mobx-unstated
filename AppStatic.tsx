@@ -1,26 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { Route, Switch, useHistory } from "react-router";
 import { Header, HeaderNotification } from "./Header";
-
-function HomePage() {
-  return (
-    <section className="section">
-      <div className="container">
-        <h1 className="title">Home</h1>
-      </div>
-    </section>
-  );
-}
-
-function NotFoundPage() {
-  return (
-    <section className="section">
-      <div className="container">
-        <h1 className="title">Not Found</h1>
-      </div>
-    </section>
-  );
-}
 
 function ListPage() {
   return (
@@ -74,6 +54,16 @@ function Footer() {
   );
 }
 
+function Loading() {
+  return (
+    <section className="section">
+      <div className="container">
+        <p>Loading...</p>
+      </div>
+    </section>
+  );
+}
+
 export function AppStatic() {
   const [isOpen, setIsOpen] = useState(false);
   const toggleOpen = () => setIsOpen(v => !v);
@@ -99,21 +89,23 @@ export function AppStatic() {
         />
       </Header>
 
-      <Switch>
-        <Route exact path="/">
-          <HomePage />
-        </Route>
-        <Route exact path="/notifications">
-          <ListPage />
-        </Route>
-        <Route exact path="/notifications/:id">
-          <DetailPage />
-        </Route>
+      <Suspense fallback={<Loading />}>
+        <Switch>
+          <Route
+            exact
+            path="/"
+            component={React.lazy(() => import("./pages/Home"))}
+          />
+          <Route exact path="/notifications">
+            <ListPage />
+          </Route>
+          <Route exact path="/notifications/:id">
+            <DetailPage />
+          </Route>
 
-        <Route>
-          <NotFoundPage />
-        </Route>
-      </Switch>
+          <Route component={React.lazy(() => import("./pages/NotFound"))} />
+        </Switch>
+      </Suspense>
 
       <Footer />
     </div>
