@@ -5,24 +5,18 @@ import { Notification } from "../types/Notification";
 
 export function Header({
   logoText,
-  isOpen,
-  onClickArrow,
   notifications
 }: {
   logoText: string;
-  isOpen: boolean;
-  onClickArrow(): unknown;
   notifications: Notification[];
 }) {
-  const [isOpenMenu, setIsOpenMenu] = useState(false);
-  const toggleOpen = () => setIsOpenMenu(v => !v);
+  const bell = useOpenableState();
+  const burger = useOpenableState();
 
-  const history = useHistory();
-  const closeMenu = () => setIsOpenMenu(false);
-  useEffect(() => {
-    const unlisten = history.listen(closeMenu);
-    return unlisten;
-  }, []);
+  useHistoryListener(() => {
+    bell.close();
+    burger.close();
+  });
 
   return (
     <nav className="navbar is-link">
@@ -31,17 +25,17 @@ export function Header({
           <LogoItem text={logoText} />
 
           {/* only when mobile width */}
-          <Burger isOpen={isOpenMenu} onClick={toggleOpen} />
+          <Burger isOpen={burger.isOpen} onClick={burger.toggle} />
         </div>
 
-        <div className={`navbar-menu ${isOpenMenu ? "is-active" : ""}`}>
+        <div className={`navbar-menu ${burger.isOpen ? "is-active" : ""}`}>
           <div className="navbar-end">
             <div
               className={`navbar-item has-dropdown ${
-                isOpen ? "is-active" : ""
+                bell.isOpen ? "is-active" : ""
               }`}
             >
-              <span className="navbar-link" onClick={onClickArrow}>
+              <span className="navbar-link" onClick={bell.toggle}>
                 <span className="icon">
                   <i className="mdi mdi-18px mdi-bell" />
                 </span>
@@ -54,6 +48,26 @@ export function Header({
       </div>
     </nav>
   );
+}
+
+function useOpenableState() {
+  const [isOpen, setIsOpen] = useState(false);
+  const toggle = () => setIsOpen(v => !v);
+  const close = () => setIsOpen(false);
+
+  return {
+    isOpen,
+    toggle,
+    close
+  };
+}
+
+function useHistoryListener(listener: () => unknown) {
+  const history = useHistory();
+  useEffect(() => {
+    const unlisten = history.listen(listener);
+    return unlisten;
+  }, []);
 }
 
 function LogoItem({ text }: { text: string }) {
