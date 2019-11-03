@@ -1,11 +1,20 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "module": "esnext",
+
+    // Some packages need this option.
     "moduleResolution": "node",
-    "jsx": "react",
+
+    // For `import React from "react"` instead of `import * as React from "react"`.
     "allowSyntheticDefaultImports": true,
 
+    // Required for Parcel with JSX.
+    "jsx": "react",
+
+    // Required for dynamic import.
+    "module": "esnext",
+
+    // Useful type check.
     "strictNullChecks": true
   }
 }
