@@ -8,8 +8,10 @@
     "last 1 Chrome versions"
   ],
   "scripts": {
-    "start": "parcel ./index.html",
-    "serve": "parcel build --target node ./scripts/serve.ts && node ./dist/serve"
+    "start": "concurrently \"yarn serve\" \"yarn api\"",
+    "serve": "parcel ./index.html",
+    "preapi": "parcel build --target node ./scripts/api.ts",
+    "api": "node ./dist/api"
   },
   "dependencies": {
     "immer": "^5.0.0",
@@ -30,6 +32,7 @@
     "@types/react-dom": "^16.9.3",
     "@types/react-router": "^5.1.2",
     "@types/react-router-dom": "^5.1.2",
+    "concurrently": "^5.0.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "parcel-bundler": "^1.12.4",
