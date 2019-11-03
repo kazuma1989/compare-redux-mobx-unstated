@@ -2,6 +2,7 @@ import React, { useState, useEffect, Suspense } from "react";
 import { Route, Switch, useHistory } from "react-router";
 import { Header, HeaderNotification } from "./Header";
 import { Loading } from "./Loading";
+import { Footer } from "./Footer";
 
 function ListPage() {
   return (
@@ -40,18 +41,6 @@ function DetailPage() {
         </div>
       </div>
     </section>
-  );
-}
-
-function Footer() {
-  return (
-    <footer className="footer">
-      <div className="container">
-        <p>
-          Created by <a href="https://github.com/kazuma1989">kazuma1989</a>
-        </p>
-      </div>
-    </footer>
   );
 }
 
