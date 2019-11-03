@@ -5,14 +5,32 @@ import { Provider } from "react-redux";
 import { Loading } from "../../components/Loading";
 import { Footer } from "../../components/Footer";
 import { Header } from "./Header";
-import { Notifications as NotificationsContainer } from "./containers/Notifications";
-import { reducer } from "./reducer";
+import {
+  Notifications as NotificationsContainer,
+  reducer as notificationsReducer
+} from "./containers/Notifications";
+import {
+  NotificationDetail as NotificationDetailContainer,
+  reducer as notificationDetailReducer
+} from "./containers/NotificationDetail";
+import { State } from "./State";
 
-const store = createStore(
-  reducer,
-  (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
-    (window as any).__REDUX_DEVTOOLS_EXTENSION__()
-);
+type Reducer = (state: State, action: any) => State;
+const reducers: Reducer[] = [notificationsReducer, notificationDetailReducer];
+
+const store = createStore(function reducer(
+  state: State = {
+    transaction: {
+      listAPI: "idle",
+      detailAPI: "idle"
+    },
+    notifications: []
+  },
+  action: any
+): State {
+  return reducers.reduce((s, r) => r(s, action), state);
+}, (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
+  (window as any).__REDUX_DEVTOOLS_EXTENSION__());
 
 const pages = {
   Home: React.lazy(() => import("./pages/Home")),

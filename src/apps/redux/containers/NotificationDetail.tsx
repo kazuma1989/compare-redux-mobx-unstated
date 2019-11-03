@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import produce from "immer";
 import ky from "ky";
 import { NotificationDetail } from "../../../types/Notification";
-import { State } from "../reducer";
+import { State } from "../State";
 
 export function NotificationDetail({ id }: { id: string }) {
   const dispatch = useDispatch<Action>();
