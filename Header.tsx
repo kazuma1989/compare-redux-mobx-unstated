@@ -74,13 +74,13 @@ export function HeaderNotification({
       <div className="navbar-dropdown is-right">
         {notifications.map(({ id, read, title }) => (
           <Link key={id} to={`/notifications/${id}`} className="navbar-item">
-            {title}
+            {read ? title : <strong>{title} **</strong>}
           </Link>
         ))}
 
         <hr className="navbar-divider" />
 
-        <Link to="/notifications" className="navbar-item">
+        <Link to="/notifications/" className="navbar-item">
           Show all notifications
         </Link>
       </div>
