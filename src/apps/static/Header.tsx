@@ -35,5 +35,5 @@ export function Header() {
       );
   }, []);
 
-  return <InnerHeader logoText="static" notifications={notifications} />;
+  return <InnerHeader logoText="Static" notifications={notifications} />;
 }
