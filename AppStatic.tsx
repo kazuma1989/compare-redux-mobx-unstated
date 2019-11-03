@@ -139,7 +139,10 @@ export function AppStatic() {
 
   const history = useHistory();
   const close = () => setIsOpen(false);
-  useEffect(() => history.listen(close), []);
+  useEffect(() => {
+    const unlisten = history.listen(close);
+    return unlisten;
+  }, []);
 
   return (
     <div>
