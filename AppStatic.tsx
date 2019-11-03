@@ -9,21 +9,50 @@ type Notification = {
   body: string;
 };
 
-function Header({ children }: { children?: React.ReactNode }) {
+function Header({ children: notification }: { children?: React.ReactNode }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleOpen = () => setIsOpen(v => !v);
+
+  const history = useHistory();
+  const close = () => setIsOpen(false);
+  useEffect(() => {
+    const unlisten = history.listen(close);
+    return unlisten;
+  }, []);
+
   return (
     <nav className="navbar is-link">
-      <div className="container" style={{ display: "block" }}>
-        <div className="navbar-brand" style={{ marginLeft: 0 }}>
+      <div className="container">
+        <div className="navbar-brand">
           <Link to="/" className="navbar-item">
-            Home
+            <span className="icon">
+              <i className="mdi mdi-24px mdi-home" />
+            </span>
+            &nbsp;&nbsp;LOGO
           </Link>
 
-          <div style={{ flexGrow: 1 }} />
+          {/* only when mobile width */}
+          <Burger isOpen={isOpen} onClick={toggleOpen} />
+        </div>
 
-          {children}
+        <div className={`navbar-menu ${isOpen ? "is-active" : ""}`}>
+          <div className="navbar-end">{notification}</div>
         </div>
       </div>
     </nav>
+  );
+}
+
+function Burger({ isOpen, onClick }: { isOpen: boolean; onClick(): unknown }) {
+  return (
+    <div
+      className={`navbar-burger ${isOpen ? "is-active" : ""}`}
+      onClick={onClick}
+    >
+      <span />
+      <span />
+      <span />
+    </div>
   );
 }
 
@@ -39,8 +68,8 @@ function HeaderNotification({
   return (
     <div className={`navbar-item has-dropdown ${isOpen ? "is-active" : ""}`}>
       <span className="navbar-link" onClick={onClickArrow}>
-        <span className="icon is-large">
-          <i className="mdi mdi-24px mdi-bell" />
+        <span className="icon">
+          <i className="mdi mdi-18px mdi-bell" />
         </span>
       </span>
 
