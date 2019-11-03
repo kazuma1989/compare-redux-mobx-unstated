@@ -18,7 +18,7 @@ function Header({ children }: { children?: React.ReactNode }) {
             Home
           </Link>
 
-          <div style={{ flexGrow: 1 }}></div>
+          <div style={{ flexGrow: 1 }} />
 
           {children}
         </div>
@@ -40,7 +40,7 @@ function HeaderNotification({
     <div className={`navbar-item has-dropdown ${isOpen ? "is-active" : ""}`}>
       <span className="navbar-link" onClick={onClickArrow}>
         <span className="icon is-large">
-          <i className="mdi mdi-24px mdi-bell"></i>
+          <i className="mdi mdi-24px mdi-bell" />
         </span>
       </span>
 
