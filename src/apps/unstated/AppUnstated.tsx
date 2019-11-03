@@ -1,12 +1,43 @@
-import React, { useState, useEffect, Suspense } from "react";
-import { Route, Switch, useHistory } from "react-router";
+import React, { useState, Suspense, useEffect } from "react";
+import { createContainer } from "unstated-next";
 import ky from "ky";
-import { Header, HeaderNotification } from "./components/Header";
-import { Loading } from "./components/Loading";
-import { Footer } from "./components/Footer";
-import { Notification, NotificationDetail } from "./types/Notification";
+import produce from "immer";
+import { NotificationDetail, Notification } from "../../types/Notification";
+import {
+  Header,
+  HeaderNotification as InnerHeaderNotification
+} from "../../components/Header";
+import { Loading } from "../../components/Loading";
+import { Switch, Route, useHistory } from "react-router";
+import { Footer } from "../../components/Footer";
 
-export function AppStatic() {
+function useNotification() {
+  const [notifications, setNotifications] = useState<Notification[]>([]);
+  useEffect(() => {
+    ky.get("http://localhost:8080/api/notifications/")
+      .json()
+      .then(data => setNotifications(data as Notification[]));
+  }, []);
+
+  return {
+    notifications,
+
+    markAsRead(index: number) {
+      setNotifications(list =>
+        produce(list, draft => {
+          draft[index].read = true;
+        })
+      );
+    }
+  };
+}
+
+const {
+  Provider: NotificationProvider,
+  useContainer: useNotificationContainer
+} = createContainer(useNotification);
+
+function HeaderNotification() {
   const [isOpen, setIsOpen] = useState(false);
   const toggleOpen = () => setIsOpen(v => !v);
 
@@ -17,21 +48,24 @@ export function AppStatic() {
     return unlisten;
   }, []);
 
-  const [notifications, setNotifications] = useState<Notification[]>([]);
-  useEffect(() => {
-    ky.get("http://localhost:8080/api/notifications/")
-      .json()
-      .then(data => setNotifications(data as Notification[]));
-  }, []);
+  const { notifications } = useNotificationContainer();
 
   return (
+    <InnerHeaderNotification
+      isOpen={isOpen}
+      onClickArrow={toggleOpen}
+      notifications={notifications}
+    />
+  );
+}
+
+export function AppUnstated() {
+  return (
     <div>
-      <Header logoText="Static">
-        <HeaderNotification
-          isOpen={isOpen}
-          onClickArrow={toggleOpen}
-          notifications={stubNotifications}
-        />
+      <Header logoText="unstated-next">
+        <NotificationProvider>
+          <HeaderNotification />
+        </NotificationProvider>
       </Header>
 
       <Suspense fallback={<Loading />}>
@@ -39,11 +73,11 @@ export function AppStatic() {
           <Route
             exact
             path="/"
-            component={React.lazy(() => import("./pages/Home"))}
+            component={React.lazy(() => import("../../pages/Home"))}
           />
 
           <Route exact path="/notifications/">
-            <NotificationListPage notifications={notifications} />
+            <NotificationListPage notifications={[]} />
           </Route>
 
           <Route
@@ -73,13 +107,13 @@ export function AppStatic() {
 }
 
 const NotificationListPage = React.lazy(() =>
-  import("./pages/NotificationList")
+  import("../../pages/NotificationList")
 );
 const NotificationDetailPage = React.lazy(() =>
-  import("./pages/NotificationDetail")
+  import("../../pages/NotificationDetail")
 );
 
-const NotFoundPage = React.lazy(() => import("./pages/NotFound"));
+const NotFoundPage = React.lazy(() => import("../../pages/NotFound"));
 
 const stubNotifications: NotificationDetail[] = [
   {
