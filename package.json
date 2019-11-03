@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "start": "concurrently \"yarn serve\" \"yarn api\"",
-    "serve": "parcel ./index.html",
+    "serve": "parcel ./src/index.html",
     "preapi": "parcel build --target node ./scripts/api.ts",
     "api": "node ./dist/api",
     "check-type": "yarn tsc"
