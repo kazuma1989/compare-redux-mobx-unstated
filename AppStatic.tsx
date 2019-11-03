@@ -2,6 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Route, Switch, useHistory } from "react-router";
 import { Link } from "react-router-dom";
 
+type Notification = {
+  id: string;
+  read: boolean;
+  title: string;
+  body: string;
+};
+
 function Header({ children }: { children?: React.ReactNode }) {
   return (
     <nav className="navbar is-link">
@@ -20,19 +27,17 @@ function Header({ children }: { children?: React.ReactNode }) {
   );
 }
 
-function HeaderNotification() {
-  const history = useHistory();
-
+function HeaderNotification({
+  notifications
+}: {
+  notifications: Notification[];
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const toggleOpen = () => setIsOpen(v => !v);
 
-  useEffect(
-    () =>
-      history.listen(function close() {
-        setIsOpen(false);
-      }),
-    [history]
-  );
+  const history = useHistory();
+  const close = () => setIsOpen(false);
+  useEffect(() => history.listen(close), []);
 
   return (
     <div className={`navbar-item has-dropdown ${isOpen ? "is-active" : ""}`}>
@@ -43,15 +48,11 @@ function HeaderNotification() {
       </span>
 
       <div className="navbar-dropdown is-right">
-        <Link to="/notifications/xxx" className="navbar-item">
-          xxx
-        </Link>
-        <Link to="/notifications/yyy" className="navbar-item">
-          yyy
-        </Link>
-        <Link to="/notifications/zzz" className="navbar-item">
-          zzz
-        </Link>
+        {notifications.map(({ id, read, title }) => (
+          <Link key={id} to={`/notifications/${id}`} className="navbar-item">
+            {title}
+          </Link>
+        ))}
 
         <hr className="navbar-divider" />
 
@@ -139,7 +140,13 @@ export function AppStatic() {
   return (
     <div>
       <Header>
-        <HeaderNotification />
+        <HeaderNotification
+          notifications={[
+            { id: "xxx", read: false, title: "title", body: "body" },
+            { id: "yyy", read: false, title: "title", body: "body" },
+            { id: "zzz", read: false, title: "title", body: "body" }
+          ]}
+        />
       </Header>
 
       <Switch>
