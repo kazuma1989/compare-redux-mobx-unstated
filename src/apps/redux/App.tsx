@@ -21,6 +21,7 @@ const store = createStore(function reducer(
       listAPI: "idle",
       detailAPI: "idle"
     },
+    notificationDetail: null,
     notificationList: []
   },
   action: any

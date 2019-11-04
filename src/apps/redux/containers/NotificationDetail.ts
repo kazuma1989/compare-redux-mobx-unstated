@@ -48,22 +48,28 @@ export const reducer = produce<(draft: TState, action: TAction) => void>(
     switch (action.type) {
       case "NotificationDetail.RUNNING": {
         draft.transaction.detailAPI = "running";
+        draft.notificationDetail = null;
         return;
       }
 
       case "NotificationDetail.SUCCESS": {
-        draft.transaction.detailAPI = "success";
-
         const detail = action.payload;
-        const i = draft.notificationList.findIndex(n => n.id === detail.id);
-        if (i !== -1) {
-          draft.notificationList[i] = detail;
+
+        draft.transaction.detailAPI = "success";
+        draft.notificationDetail = detail;
+
+        const notification = draft.notificationList.find(
+          n => n.id === detail.id
+        );
+        if (notification) {
+          notification.read = true;
         }
         return;
       }
 
       case "NotificationDetail.ERROR": {
         draft.transaction.detailAPI = "error";
+        draft.notificationDetail = null;
         return;
       }
 
