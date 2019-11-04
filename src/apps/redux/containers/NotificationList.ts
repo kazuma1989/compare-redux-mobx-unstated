@@ -52,10 +52,7 @@ export const reducer = produce<(draft: TState, action: TAction) => void>(
 
       case "NotificationList.SUCCESS": {
         draft.transaction.listAPI = "success";
-        draft.notificationList = action.payload.map(n => ({
-          ...n,
-          items: []
-        }));
+        draft.notificationList = action.payload;
         return;
       }
 
