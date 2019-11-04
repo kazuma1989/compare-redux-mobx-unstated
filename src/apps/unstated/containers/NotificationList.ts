@@ -7,6 +7,8 @@ import { TTransaction } from "../../../types/TTransaction";
 
 export const NotificationListContainer = createContainer(useNotificationList);
 
+export type TNotificationListHook = typeof useNotificationList;
+
 function useNotificationList() {
   const [{ transaction, notificationList }, setState] = useState<{
     transaction: TTransaction;
