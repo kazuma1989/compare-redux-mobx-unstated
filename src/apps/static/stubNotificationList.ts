@@ -4,7 +4,7 @@ export const stubNotificationList: TNotificationDetail[] = [
   {
     id: "xxx",
     read: false,
-    title: "The title",
+    title: "The title XXX",
     items: [
       {
         type: "image",
@@ -27,7 +27,7 @@ export const stubNotificationList: TNotificationDetail[] = [
   {
     id: "yyy",
     read: true,
-    title: "The title",
+    title: "The title YYY",
     items: [
       {
         type: "caption",
@@ -42,7 +42,7 @@ export const stubNotificationList: TNotificationDetail[] = [
   {
     id: "zzz",
     read: false,
-    title: "The title",
+    title: "The title ZZZ",
     items: [
       {
         type: "text",

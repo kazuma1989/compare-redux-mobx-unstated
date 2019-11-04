@@ -3,7 +3,7 @@
     {
       "id": "xxx",
       "read": false,
-      "title": "The title",
+      "title": "The title XXX",
       "items": [
         {
           "type": "image",
@@ -26,7 +26,7 @@
     {
       "id": "yyy",
       "read": true,
-      "title": "The title",
+      "title": "The title YYY",
       "items": [
         {
           "type": "caption",
@@ -41,7 +41,7 @@
     {
       "id": "zzz",
       "read": false,
-      "title": "The title",
+      "title": "The title ZZZ",
       "items": [
         {
           "type": "text",
