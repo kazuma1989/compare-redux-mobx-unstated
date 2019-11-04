@@ -5,13 +5,13 @@ import { Provider } from "react-redux";
 import { Loading } from "../../components/Loading";
 import { Footer } from "../../components/Footer";
 import { Header } from "./Header";
-import * as NotificationsContainer from "./containers/Notifications";
+import * as NotificationListContainer from "./containers/NotificationList";
 import * as NotificationDetailContainer from "./containers/NotificationDetail";
 import { TState } from "./TState";
 
 type TReducer = (state: TState, action: any) => TState;
 const reducers: TReducer[] = [
-  NotificationsContainer.reducer,
+  NotificationListContainer.reducer,
   NotificationDetailContainer.reducer
 ];
 
@@ -38,7 +38,7 @@ const pages = {
 };
 
 function InnerApp() {
-  NotificationsContainer.useContainer();
+  NotificationListContainer.useContainer();
 
   return (
     <>

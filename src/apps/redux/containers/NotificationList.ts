@@ -7,14 +7,14 @@ import { TState } from "../TState";
 
 type TAction =
   | {
-      type: "Notifications.RUNNING";
+      type: "NotificationList.RUNNING";
     }
   | {
-      type: "Notifications.SUCCESS";
+      type: "NotificationList.SUCCESS";
       payload: TNotification[];
     }
   | {
-      type: "Notifications.ERROR";
+      type: "NotificationList.ERROR";
     };
 
 export function useContainer() {
@@ -22,20 +22,20 @@ export function useContainer() {
 
   useEffect(() => {
     dispatch({
-      type: "Notifications.RUNNING"
+      type: "NotificationList.RUNNING"
     });
 
     ky.get(`http://localhost:3000/notifications/`)
       .json()
       .then(data =>
         dispatch({
-          type: "Notifications.SUCCESS",
+          type: "NotificationList.SUCCESS",
           payload: data as TNotification[]
         })
       )
       .catch(err =>
         dispatch({
-          type: "Notifications.ERROR"
+          type: "NotificationList.ERROR"
         })
       );
   }, []);
@@ -44,13 +44,13 @@ export function useContainer() {
 export const reducer = produce<(draft: TState, action: TAction) => void>(
   (draft, action) => {
     switch (action.type) {
-      case "Notifications.RUNNING": {
+      case "NotificationList.RUNNING": {
         draft.transaction.listAPI = "running";
         draft.notificationList = [];
         return;
       }
 
-      case "Notifications.SUCCESS": {
+      case "NotificationList.SUCCESS": {
         draft.transaction.listAPI = "success";
         draft.notificationList = action.payload.map(n => ({
           ...n,
@@ -59,7 +59,7 @@ export const reducer = produce<(draft: TState, action: TAction) => void>(
         return;
       }
 
-      case "Notifications.ERROR": {
+      case "NotificationList.ERROR": {
         draft.transaction.listAPI = "error";
         draft.notificationList = [];
         return;

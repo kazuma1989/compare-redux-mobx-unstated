@@ -5,9 +5,9 @@ import { createContainer } from "unstated-next";
 import { TNotification } from "../../../types/TNotification";
 import { TTransaction } from "../../../types/TTransaction";
 
-export const NotificationsContainer = createContainer(useNotifications);
+export const NotificationListContainer = createContainer(useNotificationList);
 
-function useNotifications() {
+function useNotificationList() {
   const [{ transaction, notificationList }, setState] = useState<{
     transaction: TTransaction;
     notificationList: TNotification[];

@@ -3,7 +3,7 @@ import { Route, Switch } from "react-router";
 import { Loading } from "../../components/Loading";
 import { Footer } from "../../components/Footer";
 import { Header } from "./Header";
-import { NotificationsContainer } from "./containers/Notifications";
+import { NotificationListContainer } from "./containers/NotificationList";
 import { NotificationDetailContainer } from "./containers/NotificationDetail";
 
 const pages = {
@@ -15,7 +15,7 @@ const pages = {
 
 export function App() {
   return (
-    <NotificationsContainer.Provider>
+    <NotificationListContainer.Provider>
       <Header />
 
       <Suspense fallback={<Loading />}>
@@ -47,6 +47,6 @@ export function App() {
       </Suspense>
 
       <Footer />
-    </NotificationsContainer.Provider>
+    </NotificationListContainer.Provider>
   );
 }

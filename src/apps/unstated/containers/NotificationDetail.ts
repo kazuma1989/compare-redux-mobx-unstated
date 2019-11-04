@@ -3,14 +3,14 @@ import ky from "ky";
 import { createContainer } from "unstated-next";
 import { TNotificationDetail } from "../../../types/TNotification";
 import { TTransaction } from "../../../types/TTransaction";
-import { NotificationsContainer } from "./Notifications";
+import { NotificationListContainer } from "./NotificationList";
 
 export const NotificationDetailContainer = createContainer(
   useNotificationDetail
 );
 
 function useNotificationDetail(id: string) {
-  const { markAsRead } = NotificationsContainer.useContainer();
+  const { markAsRead } = NotificationListContainer.useContainer();
 
   const [{ transaction, notification }, setState] = useState<{
     transaction: TTransaction;

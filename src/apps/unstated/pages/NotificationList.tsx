@@ -2,13 +2,13 @@ import React from "react";
 import { NotificationList } from "../../../components/NotificationList";
 import { Loading } from "../../../components/Loading";
 import { NotFound } from "../../../components/NotFound";
-import { NotificationsContainer } from "../containers/Notifications";
+import { NotificationListContainer } from "../containers/NotificationList";
 
 export default function() {
   const {
     transaction,
     notificationList
-  } = NotificationsContainer.useContainer();
+  } = NotificationListContainer.useContainer();
 
   if (!notificationList.length) {
     switch (transaction) {
