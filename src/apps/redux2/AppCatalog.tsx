@@ -5,7 +5,6 @@ import { Provider } from "react-redux";
 import { Loading } from "../../components/Loading";
 import { Footer } from "../../components/Footer";
 import { Header } from "./Header";
-import * as NotificationListContainer from "./containers/NotificationList";
 import { TState } from "./State";
 
 const bypass = state => state;
@@ -43,11 +42,9 @@ const pages = {
   NotFound: React.lazy(() => import("./pages/NotFound"))
 };
 
-function InnerApp() {
-  NotificationListContainer.useContainer();
-
+export function App() {
   return (
-    <>
+    <Provider store={store}>
       <Header />
 
       <Suspense fallback={<Loading />}>
@@ -75,14 +72,6 @@ function InnerApp() {
       </Suspense>
 
       <Footer />
-    </>
-  );
-}
-
-export function App() {
-  return (
-    <Provider store={store}>
-      <InnerApp />
     </Provider>
   );
 }

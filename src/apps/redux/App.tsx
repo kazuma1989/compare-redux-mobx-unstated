@@ -5,14 +5,14 @@ import { Provider } from "react-redux";
 import { Loading } from "../../components/Loading";
 import { Footer } from "../../components/Footer";
 import { Header } from "./Header";
-import * as NotificationListContainer from "./containers/NotificationList";
-import * as NotificationDetailContainer from "./containers/NotificationDetail";
+import { reducer as NotificationListReducer } from "./containers/NotificationList";
+import { reducer as NotificationDetailReducer } from "./containers/NotificationDetail";
 import { TState, initialState } from "./State";
 
 type TReducer = (state: TState, action: any) => TState;
 const reducers: TReducer[] = [
-  NotificationListContainer.reducer,
-  NotificationDetailContainer.reducer
+  NotificationListReducer,
+  NotificationDetailReducer
 ];
 const reducer: TReducer = (state = initialState, action) =>
   reducers.reduce((s, r) => r(s, action), state);
@@ -30,11 +30,9 @@ const pages = {
   NotFound: React.lazy(() => import("./pages/NotFound"))
 };
 
-function InnerApp() {
-  NotificationListContainer.useContainer();
-
+export function App() {
   return (
-    <>
+    <Provider store={store}>
       <Header />
 
       <Suspense fallback={<Loading />}>
@@ -62,14 +60,6 @@ function InnerApp() {
       </Suspense>
 
       <Footer />
-    </>
-  );
-}
-
-export function App() {
-  return (
-    <Provider store={store}>
-      <InnerApp />
     </Provider>
   );
 }
