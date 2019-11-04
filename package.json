@@ -1,7 +1,6 @@
 {
-  "name": "hello-unstated-next",
-  "version": "1.0.0",
-  "main": "index.js",
+  "name": "compare-redux-mobx-unstated",
+  "version": "0.0.0",
   "author": "kazuma1989 <kazuma.ebina@quipper.com>",
   "license": "MIT",
   "browserslist": [
