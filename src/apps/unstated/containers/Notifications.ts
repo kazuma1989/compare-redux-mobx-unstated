@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import ky from "ky";
-// import produce from "immer";
+import produce from "immer";
 import { createContainer } from "unstated-next";
 import { Notification } from "../../../types/Notification";
 import { TransactionStatus } from "../../../types/TransactionStatus";
@@ -40,13 +40,17 @@ function useNotifications() {
 
   return {
     transaction,
-    notifications
-    // markAsRead(index: number) {
-    //   setNotifications(list =>
-    //     produce(list, draft => {
-    //       draft[index].read = true;
-    //     })
-    //   );
-    // }
+    notifications,
+
+    markAsRead(id: string) {
+      setState(state =>
+        produce(state, draft => {
+          const found = draft.notifications.find(n => n.id === id);
+          if (found) {
+            found.read = true;
+          }
+        })
+      );
+    }
   };
 }
