@@ -4,7 +4,7 @@ import { Loading } from "../../../components/Loading";
 import { NotFound } from "../../../components/NotFound";
 import { NotificationsContainer } from "../containers/Notifications";
 
-export default function NotificationListPage() {
+export default function() {
   const {
     transaction,
     notificationList

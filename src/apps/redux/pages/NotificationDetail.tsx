@@ -5,7 +5,7 @@ import { NotFound } from "../../../components/NotFound";
 import { Loading } from "../../../components/Loading";
 import * as NotificationDetailContainer from "../containers/NotificationDetail";
 
-export default function NotificationDetailPage({ id }: { id: string }) {
+export default function({ id }: { id: string }) {
   NotificationDetailContainer.useContainer(id);
 
   const [transaction, notification] = useSelector(state => [

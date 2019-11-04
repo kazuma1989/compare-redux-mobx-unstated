@@ -4,7 +4,7 @@ import { NotificationList } from "../../../components/NotificationList";
 import { Loading } from "../../../components/Loading";
 import { NotFound } from "../../../components/NotFound";
 
-export default function NotificationListPage() {
+export default function() {
   const [transaction, notificationList] = useSelector(state => [
     state.transaction.listAPI,
     state.notificationList

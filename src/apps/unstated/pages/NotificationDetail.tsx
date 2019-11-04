@@ -4,7 +4,7 @@ import { NotFound } from "../../../components/NotFound";
 import { Loading } from "../../../components/Loading";
 import { NotificationDetailContainer } from "../containers/NotificationDetail";
 
-export default function NotificationDetailPage() {
+export default function() {
   const {
     transaction,
     notification
