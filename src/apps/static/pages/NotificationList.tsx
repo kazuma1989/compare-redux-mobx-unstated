@@ -5,11 +5,9 @@ import { NotFound } from "../../../components/NotFound";
 import { stubNotificationList } from "../stubNotificationList";
 
 export default function() {
-  const notificationList: TNotification[] = stubNotificationList.map(n => ({
-    id: n.id,
-    title: n.title,
-    read: n.read
-  }));
+  const notificationList: TNotification[] = stubNotificationList.map(
+    ({ id, read, title }) => ({ id, read, title })
+  );
 
   if (!notificationList.length) {
     return <NotFound />;
