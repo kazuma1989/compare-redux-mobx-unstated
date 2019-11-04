@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import ky from "ky";
 import { Header as InnerHeader } from "../../components/Header";
-import { TransactionStatus } from "../../types/TransactionStatus";
-import { Notification } from "../../types/Notification";
+import { TTransaction } from "../../types/TTransaction";
+import { TNotification } from "../../types/TNotification";
 
 export function Header() {
   const [{ transaction, notifications }, setState] = useState<{
-    transaction: TransactionStatus;
-    notifications: Notification[];
+    transaction: TTransaction;
+    notifications: TNotification[];
   }>({
     transaction: "idle",
     notifications: []
@@ -24,7 +24,7 @@ export function Header() {
       .then(data =>
         setState({
           transaction: "success",
-          notifications: data as Notification[]
+          notifications: data as TNotification[]
         })
       )
       .catch(err =>

@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
-import { Notification } from "../types/Notification";
+import { TNotification } from "../types/TNotification";
 
 export function Header({
   logoText,
   notifications
 }: {
   logoText: string;
-  notifications: Notification[];
+  notifications: TNotification[];
 }) {
   const bell = useOpenableState();
   const burger = useOpenableState();
@@ -95,7 +95,7 @@ function Burger({ isOpen, onClick }: { isOpen: boolean; onClick(): unknown }) {
   );
 }
 
-function Dropdown({ notifications }: { notifications: Notification[] }) {
+function Dropdown({ notifications }: { notifications: TNotification[] }) {
   return (
     <div className="navbar-dropdown is-right">
       {notifications.map(({ id, read, title }) => (

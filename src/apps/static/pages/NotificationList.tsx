@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import ky from "ky";
-import { Notification } from "../../../types/Notification";
-import { TransactionStatus } from "../../../types/TransactionStatus";
+import { TNotification } from "../../../types/TNotification";
+import { TTransaction } from "../../../types/TTransaction";
 import { NotificationList } from "../../../components/NotificationList";
 import { Loading } from "../../../components/Loading";
 import { NotFound } from "../../../components/NotFound";
 
 export default function NotificationListPage() {
   const [{ transaction, notifications }, setState] = useState<{
-    transaction: TransactionStatus;
-    notifications: Notification[];
+    transaction: TTransaction;
+    notifications: TNotification[];
   }>({
     transaction: "idle",
     notifications: []
@@ -26,7 +26,7 @@ export default function NotificationListPage() {
       .then(data =>
         setState({
           transaction: "success",
-          notifications: data as Notification[]
+          notifications: data as TNotification[]
         })
       )
       .catch(err =>

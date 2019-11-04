@@ -2,15 +2,15 @@ import { useState, useEffect } from "react";
 import ky from "ky";
 import produce from "immer";
 import { createContainer } from "unstated-next";
-import { Notification } from "../../../types/Notification";
-import { TransactionStatus } from "../../../types/TransactionStatus";
+import { TNotification } from "../../../types/TNotification";
+import { TTransaction } from "../../../types/TTransaction";
 
 export const NotificationsContainer = createContainer(useNotifications);
 
 function useNotifications() {
   const [{ transaction, notifications }, setState] = useState<{
-    transaction: TransactionStatus;
-    notifications: Notification[];
+    transaction: TTransaction;
+    notifications: TNotification[];
   }>({
     transaction: "idle",
     notifications: []
@@ -27,7 +27,7 @@ function useNotifications() {
       .then(data =>
         setState({
           transaction: "success",
-          notifications: data as Notification[]
+          notifications: data as TNotification[]
         })
       )
       .catch(err =>

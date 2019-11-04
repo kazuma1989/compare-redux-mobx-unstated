@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import ky from "ky";
 import { createContainer } from "unstated-next";
-import { NotificationDetail } from "../../../types/Notification";
-import { TransactionStatus } from "../../../types/TransactionStatus";
+import { TNotificationDetail } from "../../../types/TNotification";
+import { TTransaction } from "../../../types/TTransaction";
 import { NotificationsContainer } from "./Notifications";
 
 export const NotificationDetailContainer = createContainer(
@@ -13,8 +13,8 @@ function useNotificationDetail(id: string) {
   const { markAsRead } = NotificationsContainer.useContainer();
 
   const [{ transaction, notification }, setState] = useState<{
-    transaction: TransactionStatus;
-    notification: NotificationDetail | null;
+    transaction: TTransaction;
+    notification: TNotificationDetail | null;
   }>({
     transaction: "idle",
     notification: null
@@ -34,7 +34,7 @@ function useNotificationDetail(id: string) {
         markAsRead(id);
         setState({
           transaction: "success",
-          notification: data as NotificationDetail
+          notification: data as TNotificationDetail
         });
       })
       .catch(err =>

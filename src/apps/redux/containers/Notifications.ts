@@ -2,23 +2,23 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import produce from "immer";
 import ky from "ky";
-import { Notification } from "../../../types/Notification";
-import { State } from "../State";
+import { TNotification } from "../../../types/TNotification";
+import { TState } from "../TState";
 
-type Action =
+type TAction =
   | {
       type: "Notifications.RUNNING";
     }
   | {
       type: "Notifications.SUCCESS";
-      payload: Notification[];
+      payload: TNotification[];
     }
   | {
       type: "Notifications.ERROR";
     };
 
 export function useContainer() {
-  const dispatch = useDispatch<Action>();
+  const dispatch = useDispatch<TAction>();
 
   useEffect(() => {
     dispatch({
@@ -30,7 +30,7 @@ export function useContainer() {
       .then(data =>
         dispatch({
           type: "Notifications.SUCCESS",
-          payload: data as Notification[]
+          payload: data as TNotification[]
         })
       )
       .catch(err =>
@@ -41,7 +41,7 @@ export function useContainer() {
   }, []);
 }
 
-export const reducer = produce<(draft: State, action: Action) => void>(
+export const reducer = produce<(draft: TState, action: TAction) => void>(
   (draft, action) => {
     switch (action.type) {
       case "Notifications.RUNNING": {

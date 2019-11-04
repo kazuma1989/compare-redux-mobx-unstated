@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Notification } from "../types/Notification";
+import { TNotification } from "../types/TNotification";
 
 export function NotificationList({
   notifications
 }: {
-  notifications: Notification[];
+  notifications: TNotification[];
 }) {
   return (
     <section className="section">

@@ -7,16 +7,16 @@ import { Footer } from "../../components/Footer";
 import { Header } from "./Header";
 import * as NotificationsContainer from "./containers/Notifications";
 import * as NotificationDetailContainer from "./containers/NotificationDetail";
-import { State } from "./State";
+import { TState } from "./TState";
 
-type Reducer = (state: State, action: any) => State;
-const reducers: Reducer[] = [
+type TReducer = (state: TState, action: any) => TState;
+const reducers: TReducer[] = [
   NotificationsContainer.reducer,
   NotificationDetailContainer.reducer
 ];
 
 const store = createStore(function reducer(
-  state: State = {
+  state: TState = {
     transaction: {
       listAPI: "idle",
       detailAPI: "idle"
@@ -24,7 +24,7 @@ const store = createStore(function reducer(
     notifications: []
   },
   action: any
-): State {
+): TState {
   return reducers.reduce((s, r) => r(s, action), state);
 }, (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
   (window as any).__REDUX_DEVTOOLS_EXTENSION__());

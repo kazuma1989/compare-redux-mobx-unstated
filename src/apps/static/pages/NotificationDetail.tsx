@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import ky from "ky";
-import { NotificationDetail as TNotificationDetail } from "../../../types/Notification";
+import { TNotificationDetail } from "../../../types/TNotification";
 import { NotificationDetail } from "../../../components/NotificationDetail";
 import { NotFound } from "../../../components/NotFound";
-import { TransactionStatus } from "../../../types/TransactionStatus";
+import { TTransaction } from "../../../types/TTransaction";
 import { Loading } from "../../../components/Loading";
 
 export default function NotificationDetailPage({ id }: { id: string }) {
   const [{ transaction, notification }, setState] = useState<{
-    transaction: TransactionStatus;
+    transaction: TTransaction;
     notification: TNotificationDetail | null;
   }>({
     transaction: "idle",
