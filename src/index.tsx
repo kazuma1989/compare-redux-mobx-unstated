@@ -4,6 +4,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 // import { App as AppStatic } from "./apps/static/App";
 import { App as AppRedux } from "./apps/redux/App";
+import { App as AppRedux2 } from "./apps/redux2/App";
 import { App as AppReduxCatalog } from "./apps/redux/AppCatalog";
 import { App as AppMobx } from "./apps/mobx/App";
 import { App as AppMobxCatalog } from "./apps/mobx/AppCatalog";
@@ -31,6 +32,12 @@ ReactDOM.render(
     <AppWrapper>
       <AppUnstatedCatalog />
     </AppWrapper>
+
+    <AppWrapper>
+      <AppRedux2 />
+    </AppWrapper>
+    <AppWrapper>{null}</AppWrapper>
+    <AppWrapper>{null}</AppWrapper>
   </Wrapper>,
   document.getElementById("app")
 );
