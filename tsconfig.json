@@ -14,9 +14,11 @@
     // Required for dynamic import.
     "module": "esnext",
 
+    // Required for decorators.
+    "experimentalDecorators": true,
+
     // Useful type check.
     "strictNullChecks": true,
-
     "noEmit": true
-  },
+  }
 }
