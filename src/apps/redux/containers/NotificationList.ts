@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import produce from "immer";
 import ky from "ky";
 import { TNotification } from "../../../types/TNotification";
-import { TState } from "../TState";
+import { TState } from "../State";
 
 type TAction =
   | {

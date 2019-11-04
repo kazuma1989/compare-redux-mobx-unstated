@@ -7,28 +7,21 @@ import { Footer } from "../../components/Footer";
 import { Header } from "./Header";
 import * as NotificationListContainer from "./containers/NotificationList";
 import * as NotificationDetailContainer from "./containers/NotificationDetail";
-import { TState } from "./TState";
+import { TState, initialState } from "./State";
 
 type TReducer = (state: TState, action: any) => TState;
 const reducers: TReducer[] = [
   NotificationListContainer.reducer,
   NotificationDetailContainer.reducer
 ];
+const reducer: TReducer = (state = initialState, action) =>
+  reducers.reduce((s, r) => r(s, action), state);
 
-const store = createStore(function reducer(
-  state: TState = {
-    transaction: {
-      listAPI: "idle",
-      detailAPI: "idle"
-    },
-    notificationDetail: null,
-    notificationList: []
-  },
-  action: any
-): TState {
-  return reducers.reduce((s, r) => r(s, action), state);
-}, (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
-  (window as any).__REDUX_DEVTOOLS_EXTENSION__());
+const store = createStore(
+  reducer,
+  (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
+    (window as any).__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 const pages = {
   Home: React.lazy(() => import("./pages/Home")),

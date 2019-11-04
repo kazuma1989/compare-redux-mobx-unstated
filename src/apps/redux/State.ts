@@ -9,3 +9,12 @@ export type TState = {
   notificationList: TNotification[];
   notificationDetail: TNotificationDetail | null;
 };
+
+export const initialState: TState = {
+  transaction: {
+    listAPI: "idle",
+    detailAPI: "idle"
+  },
+  notificationList: [],
+  notificationDetail: null
+};

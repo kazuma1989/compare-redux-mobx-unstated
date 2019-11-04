@@ -1,5 +1,5 @@
 import { Store, Dispatch as ReduxDispatch, Action } from "redux";
-import { TState } from "./TState";
+import { TState } from "./State";
 
 declare module "react-redux" {
   type Dispatch<A extends Action = Action> = ReduxDispatch<A>;
