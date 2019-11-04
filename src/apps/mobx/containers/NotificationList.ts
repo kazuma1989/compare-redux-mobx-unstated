@@ -1,9 +1,23 @@
+import { createContext, useContext } from "react";
 import ky from "ky";
 import { observable, flow, action } from "mobx";
 import { TNotification } from "../../../types/TNotification";
 import { TTransaction } from "../../../types/TTransaction";
 
-export class NotificationListContainer {
+const context = createContext<Container | null>(null);
+
+export const Provider = context.Provider;
+
+export function useContainer() {
+  const container = useContext(context);
+  if (!container) {
+    throw new Error();
+  }
+
+  return container;
+}
+
+export class Container {
   @observable
   transaction: TTransaction = "idle";
 
@@ -12,6 +26,10 @@ export class NotificationListContainer {
 
   fetchNotificationList = flow(this._fetchNotificationList);
   private *_fetchNotificationList() {
+    if (this.transaction !== "idle") {
+      return;
+    }
+
     this.transaction = "running";
     this.notificationList = [];
 

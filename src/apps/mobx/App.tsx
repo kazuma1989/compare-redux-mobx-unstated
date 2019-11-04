@@ -3,6 +3,11 @@ import { Route, Switch } from "react-router";
 import { Loading } from "../../components/Loading";
 import { Footer } from "../../components/Footer";
 import { Header } from "./Header";
+import * as NotificationListContainer from "./containers/NotificationList";
+import * as NotificationDetailContainer from "./containers/NotificationDetail";
+
+const notificationListContainer = new NotificationListContainer.Container();
+const notificationDetailContainer = new NotificationDetailContainer.Container();
 
 const pages = {
   Home: React.lazy(() => import("./pages/Home")),
@@ -13,7 +18,7 @@ const pages = {
 
 export function App() {
   return (
-    <div>
+    <NotificationListContainer.Provider value={notificationListContainer}>
       <Header />
 
       <Suspense fallback={<Loading />}>
@@ -30,7 +35,11 @@ export function App() {
             exact
             path="/notifications/:id"
             render={({ match }) => (
-              <pages.NotificationDetail id={match.params.id} />
+              <NotificationDetailContainer.Provider
+                value={notificationDetailContainer}
+              >
+                <pages.NotificationDetail id={match.params.id} />
+              </NotificationDetailContainer.Provider>
             )}
           />
 
@@ -41,6 +50,6 @@ export function App() {
       </Suspense>
 
       <Footer />
-    </div>
+    </NotificationListContainer.Provider>
   );
 }

@@ -3,11 +3,11 @@ import { observer } from "mobx-react";
 import { NotificationDetail } from "../../../components/NotificationDetail";
 import { NotFound } from "../../../components/NotFound";
 import { Loading } from "../../../components/Loading";
-import { NotificationDetailContainer } from "../containers/NotificationDetail";
-
-const container = new NotificationDetailContainer();
+import { useContainer } from "../containers/NotificationDetail";
 
 export default observer(function({ id }: { id: string }) {
+  const container = useContainer();
+
   useEffect(() => {
     container.fetchNotificationDetail(id);
   }, [id]);
