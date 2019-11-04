@@ -5,10 +5,10 @@ import { TNotification } from "../types/TNotification";
 
 export function Header({
   logoText,
-  notifications
+  notificationList
 }: {
   logoText: string;
-  notifications: TNotification[];
+  notificationList: TNotification[];
 }) {
   const bell = useOpenableState();
   const burger = useOpenableState();
@@ -41,7 +41,7 @@ export function Header({
                 </span>
               </span>
 
-              <Dropdown notifications={notifications} />
+              <Dropdown notificationList={notificationList} />
             </div>
           </div>
         </div>
@@ -95,10 +95,10 @@ function Burger({ isOpen, onClick }: { isOpen: boolean; onClick(): unknown }) {
   );
 }
 
-function Dropdown({ notifications }: { notifications: TNotification[] }) {
+function Dropdown({ notificationList }: { notificationList: TNotification[] }) {
   return (
     <div className="navbar-dropdown is-right">
-      {notifications.map(({ id, read, title }) => (
+      {notificationList.map(({ id, read, title }) => (
         <Link key={id} to={`/notifications/${id}`} className="navbar-item">
           {read ? title : <strong>{title} **</strong>}
         </Link>

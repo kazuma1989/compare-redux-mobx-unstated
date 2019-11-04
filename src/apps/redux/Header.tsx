@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Header as InnerHeader } from "../../components/Header";
 
 export function Header() {
-  const notifications = useSelector(state => state.notifications);
+  const notificationList = useSelector(state => state.notificationList);
 
-  return <InnerHeader logoText="Redux" notifications={notifications} />;
+  return <InnerHeader logoText="Redux" notificationList={notificationList} />;
 }

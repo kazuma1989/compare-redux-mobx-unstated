@@ -7,18 +7,18 @@ import { Loading } from "../../../components/Loading";
 import { NotFound } from "../../../components/NotFound";
 
 export default function NotificationListPage() {
-  const [{ transaction, notifications }, setState] = useState<{
+  const [{ transaction, notificationList }, setState] = useState<{
     transaction: TTransaction;
-    notifications: TNotification[];
+    notificationList: TNotification[];
   }>({
     transaction: "idle",
-    notifications: []
+    notificationList: []
   });
 
   useEffect(() => {
     setState({
       transaction: "running",
-      notifications: []
+      notificationList: []
     });
 
     ky.get(`http://localhost:3000/notifications/`)
@@ -26,18 +26,18 @@ export default function NotificationListPage() {
       .then(data =>
         setState({
           transaction: "success",
-          notifications: data as TNotification[]
+          notificationList: data as TNotification[]
         })
       )
       .catch(err =>
         setState({
           transaction: "error",
-          notifications: []
+          notificationList: []
         })
       );
   }, []);
 
-  if (!notifications.length) {
+  if (!notificationList.length) {
     switch (transaction) {
       case "idle":
       case "running":
@@ -49,5 +49,5 @@ export default function NotificationListPage() {
     }
   }
 
-  return <NotificationList notifications={notifications} />;
+  return <NotificationList notificationList={notificationList} />;
 }

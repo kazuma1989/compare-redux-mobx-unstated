@@ -55,9 +55,9 @@ export const reducer = produce<(draft: TState, action: TAction) => void>(
         draft.transaction.detailAPI = "success";
 
         const detail = action.payload;
-        const i = draft.notifications.findIndex(n => n.id === detail.id);
+        const i = draft.notificationList.findIndex(n => n.id === detail.id);
         if (i !== -1) {
-          draft.notifications[i] = detail;
+          draft.notificationList[i] = detail;
         }
         return;
       }

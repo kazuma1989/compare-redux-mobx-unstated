@@ -3,7 +3,9 @@ import { Header as InnerHeader } from "../../components/Header";
 import { NotificationsContainer } from "./containers/Notifications";
 
 export function Header() {
-  const { notifications } = NotificationsContainer.useContainer();
+  const { notificationList } = NotificationsContainer.useContainer();
 
-  return <InnerHeader logoText="unstated-next" notifications={notifications} />;
+  return (
+    <InnerHeader logoText="unstated-next" notificationList={notificationList} />
+  );
 }

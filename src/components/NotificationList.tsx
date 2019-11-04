@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import { TNotification } from "../types/TNotification";
 
 export function NotificationList({
-  notifications
+  notificationList
 }: {
-  notifications: TNotification[];
+  notificationList: TNotification[];
 }) {
   return (
     <section className="section">
@@ -14,7 +14,7 @@ export function NotificationList({
 
         <div className="content">
           <ul>
-            {notifications.map(({ id, read, title }) => (
+            {notificationList.map(({ id, read, title }) => (
               <li key={id}>
                 <Link to={id}>
                   {read ? title : <strong>{title} **</strong>}

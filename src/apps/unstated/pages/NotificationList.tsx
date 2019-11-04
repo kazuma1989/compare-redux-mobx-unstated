@@ -5,9 +5,12 @@ import { NotFound } from "../../../components/NotFound";
 import { NotificationsContainer } from "../containers/Notifications";
 
 export default function NotificationListPage() {
-  const { transaction, notifications } = NotificationsContainer.useContainer();
+  const {
+    transaction,
+    notificationList
+  } = NotificationsContainer.useContainer();
 
-  if (!notifications.length) {
+  if (!notificationList.length) {
     switch (transaction) {
       case "idle":
       case "running":
@@ -19,5 +22,5 @@ export default function NotificationListPage() {
     }
   }
 
-  return <NotificationList notifications={notifications} />;
+  return <NotificationList notificationList={notificationList} />;
 }

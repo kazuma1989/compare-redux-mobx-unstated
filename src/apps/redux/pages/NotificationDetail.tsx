@@ -10,7 +10,7 @@ export default function NotificationDetailPage({ id }: { id: string }) {
 
   const [transaction, notification] = useSelector(state => [
     state.transaction.detailAPI,
-    state.notifications.find(n => n.id === id)
+    state.notificationList.find(n => n.id === id)
   ]);
 
   if (!notification) {

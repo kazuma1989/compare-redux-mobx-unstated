@@ -6,5 +6,5 @@ export type TState = {
     listAPI: TTransaction;
     detailAPI: TTransaction;
   };
-  notifications: TNotificationDetail[];
+  notificationList: TNotificationDetail[];
 };

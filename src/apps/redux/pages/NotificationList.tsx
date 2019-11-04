@@ -5,12 +5,12 @@ import { Loading } from "../../../components/Loading";
 import { NotFound } from "../../../components/NotFound";
 
 export default function NotificationListPage() {
-  const [transaction, notifications] = useSelector(state => [
+  const [transaction, notificationList] = useSelector(state => [
     state.transaction.listAPI,
-    state.notifications
+    state.notificationList
   ]);
 
-  if (!notifications.length) {
+  if (!notificationList.length) {
     switch (transaction) {
       case "idle":
       case "running":
@@ -22,5 +22,5 @@ export default function NotificationListPage() {
     }
   }
 
-  return <NotificationList notifications={notifications} />;
+  return <NotificationList notificationList={notificationList} />;
 }

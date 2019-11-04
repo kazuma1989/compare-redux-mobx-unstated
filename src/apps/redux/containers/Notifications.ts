@@ -46,13 +46,13 @@ export const reducer = produce<(draft: TState, action: TAction) => void>(
     switch (action.type) {
       case "Notifications.RUNNING": {
         draft.transaction.listAPI = "running";
-        draft.notifications = [];
+        draft.notificationList = [];
         return;
       }
 
       case "Notifications.SUCCESS": {
         draft.transaction.listAPI = "success";
-        draft.notifications = action.payload.map(n => ({
+        draft.notificationList = action.payload.map(n => ({
           ...n,
           items: []
         }));
@@ -61,7 +61,7 @@ export const reducer = produce<(draft: TState, action: TAction) => void>(
 
       case "Notifications.ERROR": {
         draft.transaction.listAPI = "error";
-        draft.notifications = [];
+        draft.notificationList = [];
         return;
       }
 

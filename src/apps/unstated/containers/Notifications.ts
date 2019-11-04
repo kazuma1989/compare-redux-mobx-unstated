@@ -8,18 +8,18 @@ import { TTransaction } from "../../../types/TTransaction";
 export const NotificationsContainer = createContainer(useNotifications);
 
 function useNotifications() {
-  const [{ transaction, notifications }, setState] = useState<{
+  const [{ transaction, notificationList }, setState] = useState<{
     transaction: TTransaction;
-    notifications: TNotification[];
+    notificationList: TNotification[];
   }>({
     transaction: "idle",
-    notifications: []
+    notificationList: []
   });
 
   useEffect(() => {
     setState({
       transaction: "running",
-      notifications: []
+      notificationList: []
     });
 
     ky.get(`http://localhost:3000/notifications/`)
@@ -27,25 +27,25 @@ function useNotifications() {
       .then(data =>
         setState({
           transaction: "success",
-          notifications: data as TNotification[]
+          notificationList: data as TNotification[]
         })
       )
       .catch(err =>
         setState({
           transaction: "error",
-          notifications: []
+          notificationList: []
         })
       );
   }, []);
 
   return {
     transaction,
-    notifications,
+    notificationList,
 
     markAsRead(id: string) {
       setState(state =>
         produce(state, draft => {
-          const found = draft.notifications.find(n => n.id === id);
+          const found = draft.notificationList.find(n => n.id === id);
           if (found) {
             found.read = true;
           }

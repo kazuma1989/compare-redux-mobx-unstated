@@ -5,18 +5,18 @@ import { TTransaction } from "../../types/TTransaction";
 import { TNotification } from "../../types/TNotification";
 
 export function Header() {
-  const [{ transaction, notifications }, setState] = useState<{
+  const [{ transaction, notificationList }, setState] = useState<{
     transaction: TTransaction;
-    notifications: TNotification[];
+    notificationList: TNotification[];
   }>({
     transaction: "idle",
-    notifications: []
+    notificationList: []
   });
 
   useEffect(() => {
     setState({
       transaction: "running",
-      notifications: []
+      notificationList: []
     });
 
     ky.get(`http://localhost:3000/notifications/`)
@@ -24,16 +24,16 @@ export function Header() {
       .then(data =>
         setState({
           transaction: "success",
-          notifications: data as TNotification[]
+          notificationList: data as TNotification[]
         })
       )
       .catch(err =>
         setState({
           transaction: "error",
-          notifications: []
+          notificationList: []
         })
       );
   }, []);
 
-  return <InnerHeader logoText="Static" notifications={notifications} />;
+  return <InnerHeader logoText="Static" notificationList={notificationList} />;
 }

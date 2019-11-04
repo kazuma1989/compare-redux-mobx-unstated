@@ -21,7 +21,7 @@ const store = createStore(function reducer(
       listAPI: "idle",
       detailAPI: "idle"
     },
-    notifications: []
+    notificationList: []
   },
   action: any
 ): TState {
