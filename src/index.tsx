@@ -28,12 +28,7 @@ ReactDOM.render(
 function Wrapper({ children }: { children: React.ReactNode }) {
   return (
     <Router>
-      <div
-        style={{
-          display: "flex",
-          flexFlow: "row nowrap"
-        }}
-      >
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr" }}>
         {children}
       </div>
     </Router>
@@ -43,12 +38,7 @@ function Wrapper({ children }: { children: React.ReactNode }) {
 function AppWrapper({ children }: { children: React.ReactNode }) {
   return (
     <ErrorBoundary>
-      <div
-        style={{
-          border: "solid 1px black",
-          flex: "1 1 auto"
-        }}
-      >
+      <div style={{ border: "solid 1px black", borderWidth: "0 1px 1px 0" }}>
         {children}
       </div>
     </ErrorBoundary>
