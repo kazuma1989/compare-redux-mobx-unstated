@@ -5,6 +5,7 @@ import { ErrorBoundary } from "./components/ErrorBoundary";
 import { App as AppStatic } from "./apps/static/App";
 import { App as AppUnstated } from "./apps/unstated/App";
 import { App as AppRedux } from "./apps/redux/App";
+import { App as AppMobx } from "./apps/mobx/App";
 
 ReactDOM.render(
   <Wrapper>
@@ -13,6 +14,9 @@ ReactDOM.render(
     </AppWrapper>
     <AppWrapper>
       <AppUnstated />
+    </AppWrapper>
+    <AppWrapper>
+      <AppMobx />
     </AppWrapper>
     <AppWrapper>
       <AppStatic />

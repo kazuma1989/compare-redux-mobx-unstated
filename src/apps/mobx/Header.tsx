@@ -8,5 +8,5 @@ export function Header() {
     ({ id, read, title }) => ({ id, read, title })
   );
 
-  return <InnerHeader logoText="Static" notificationList={notificationList} />;
+  return <InnerHeader logoText="MobX" notificationList={notificationList} />;
 }

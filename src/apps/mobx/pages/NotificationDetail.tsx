@@ -1,14 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { observer } from "mobx-react";
 import { NotificationDetail } from "../../../components/NotificationDetail";
 import { NotFound } from "../../../components/NotFound";
-import { stubNotificationList } from "../stubNotificationList";
+import { Loading } from "../../../components/Loading";
+import { NotificationDetailContainer } from "../containers/NotificationDetail";
 
-export default function({ id }: { id: string }) {
-  const notification = stubNotificationList.find(n => n.id === id);
+const container = new NotificationDetailContainer();
+
+export default observer(function({ id }: { id: string }) {
+  useEffect(() => {
+    container.fetchNotificationDetail(id);
+  }, [id]);
+
+  const { transaction, notificationDetail: notification } = container;
 
   if (!notification) {
-    return <NotFound />;
+    switch (transaction) {
+      case "idle":
+      case "running":
+        return <Loading />;
+
+      case "error":
+      default:
+        return <NotFound />;
+    }
   }
 
   return <NotificationDetail notification={notification} />;
-}
+});
