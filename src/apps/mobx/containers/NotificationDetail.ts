@@ -3,6 +3,7 @@ import ky from "ky";
 import { observable, flow } from "mobx";
 import { TNotificationDetail } from "../../../types/TNotification";
 import { TTransaction } from "../../../types/TTransaction";
+import * as NotificationList from "./NotificationList";
 
 const context = createContext<Container | null>(null);
 
@@ -24,6 +25,8 @@ export class Container {
   @observable
   notificationDetail: TNotificationDetail | null = null;
 
+  constructor(private notificationListContainer: NotificationList.Container) {}
+
   fetchNotificationDetail = flow(this._fetchNotificationDetail);
   private *_fetchNotificationDetail(id: string) {
     this.transaction = "running";
@@ -35,6 +38,8 @@ export class Container {
           json: { read: true }
         })
         .json();
+
+      this.notificationListContainer.markAsRead(id);
 
       this.notificationDetail = data as TNotificationDetail;
       this.transaction = "success";
